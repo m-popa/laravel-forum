@@ -17,12 +17,11 @@ class ListComments extends Component
 
     #[Locked]
     public int $threadId;
-    
+
     #[On('replyCreated')]
     public function refreshReplies(): void
     {
-        $lastPage = $this->comments()->lastPage();
-        $this->gotoPage($lastPage);
+        $this->gotoPage($this->comments()->lastPage());
     }
 
     #[Computed]

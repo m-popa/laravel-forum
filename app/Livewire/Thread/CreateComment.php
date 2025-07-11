@@ -23,7 +23,7 @@ class CreateComment extends Component
 
 
     #[Computed]
-    public function parentUserName(): ?string
+    public function parentPreview(): ?array
     {
         if (is_null($this->parentId)) {
             return null;
@@ -31,7 +31,14 @@ class CreateComment extends Component
 
         $parentComment = Comment::find($this->parentId);
 
-        return $parentComment?->user->name;
+        if (!$parentComment) {
+            return null;
+        }
+
+        return [
+            'name' => $parentComment->user->name,
+            'preview' => str($parentComment->body)->limit(120),
+        ];
     }
 
     #[On('reply-to-comment')]

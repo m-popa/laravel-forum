@@ -1,11 +1,11 @@
-<div class="space-y-8 bg-white dark:bg-gray-900 mt-8">
+<div class="space-y-8 bg-white dark:bg-gray-900 mt-8" id="comments-wrapper">
     @forelse ($comments as $comment)
         <x-thread.comment-card :comment="$comment"/>
     @empty
         <p class="text-gray-500 dark:text-gray-400">
-            No comments yet. Be the first to comment!
+            {{ __('No comments yet. Be the first to comment!') }}
         </p>
     @endforelse
 
-    {{ $comments->links() }}
+    {{ $comments->links(data: ['scrollTo' => '#comments-wrapper']) }}
 </div>
