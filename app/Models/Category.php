@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Observers\CategoryObserver;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -19,7 +20,7 @@ class Category extends Model
 
     public static function cachedCategories()
     {
-        return cache()->rememberForever('categories', fn() => Category::get());
+        return Cache::rememberForever('categories', static fn() => Category::get());
     }
 
     public function sluggable(): array

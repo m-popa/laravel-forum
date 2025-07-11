@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->id();
             $table->string('title');
             $table->string('slug')->nullable();
-            $table->text('content')->nullable();
+            $table->text('content');
             $table->unsignedBigInteger('views')->default(0);
             $table->boolean('is_pinned')->default(false);
             $table->boolean('is_locked')->default(false);

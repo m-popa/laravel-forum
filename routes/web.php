@@ -16,7 +16,7 @@ Route::get('/categories/{category:slug}', [CategoryController::class, 'show'])->
 
 Route::get('/categories/{category:slug}/threads/{thread:slug}', [ThreadController::class, 'show'])
      ->name('threads.show');
-Route::get('/threads/create', [ThreadController::class, 'create'])->name('threads.create');
+Route::get('/threads/create/{category:slug}', [ThreadController::class, 'create'])->name('threads.create');
 
 Route::post('/replies', [ReplyController::class, 'store'])->name('replies.store');
 

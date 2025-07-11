@@ -17,24 +17,14 @@
         <article
             class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 shadow-sm transition">
             <div class="prose dark:prose-invert max-w-none text-gray-800 dark:text-gray-200">
-                {!! nl2br(e($thread->content)) !!}
+                {!! str($thread->content)->markdown()->sanitizeHtml() !!}
             </div>
         </article>
 
-        <div class="mt-16">
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                Replies
-            </h2>
 
-            <div
-                class="space-y-8 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6">
-                @forelse ($thread->replies as $reply)
-                    <x-thread.reply :reply="$reply"/>
-                @empty
-                    <p class="text-gray-500 dark:text-gray-400">No replies yet. Be the first to reply!</p>
-                @endforelse
-            </div>
-        </div>
+        <livewire:thread.list-replies :thread-id="$thread->id"/>
+
+        <livewire:thread.create-reply :thread-id="$thread->id"/>
 
     </section>
 </x-app-layout>

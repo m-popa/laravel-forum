@@ -5,9 +5,10 @@ namespace App\Livewire;
 use Exception;
 use App\Models\Thread;
 use Livewire\Component;
+use App\Models\Category;
 use Filament\Schemas\Schema;
+use App\Actions\CreateThreadAction;
 use Illuminate\Support\Facades\Auth;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Forms\Components\MarkdownEditor;
@@ -17,9 +18,11 @@ class CreateThread extends Component implements HasSchemas
 {
     use InteractsWithSchemas;
 
-    public ?array $data = [];
+    public Category $category;
+    public ?array   $data = [];
 
-    public function mount(): void
+
+    public function mount(Category $category): void
     {
         $this->form->fill();
     }
@@ -32,31 +35,26 @@ class CreateThread extends Component implements HasSchemas
         return $schema
             ->components([
                 TextInput::make('title')
+                         ->label('Title')
                          ->required(),
-                MarkdownEditor::make('content'),
 
-                Select::make('category_id')
-                      ->relationship('category', 'name')
-                      ->required(),
+                MarkdownEditor::make('content')
+                              ->label('Content'),
             ])
             ->model(Thread::class)
             ->statePath('data');
     }
 
-    public function create(): void
+    public function create(CreateThreadAction $action): void
     {
         $this->validate();
 
-        $data            = $this->form->getState();
-        $data['user_id'] = Auth::id();
-
-        $thread = Thread::create($data);
+        $thread = $action->execute(
+            user: Auth::user(),
+            category: $this->category,
+            data: $this->form->getState()
+        );
 
         $this->redirectRoute('categories.show', $thread->category);
-    }
-
-    public function render()
-    {
-        return view('livewire.create-thread');
     }
 }

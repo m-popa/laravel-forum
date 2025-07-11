@@ -16,17 +16,18 @@
     </section>
 
     <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div class="flex items-center justify-between mb-10">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10">
             <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
                 Threads in "{{ $category->name }}"
             </h2>
             @auth
                 <a href="{{ route('threads.create', ['category' => $category]) }}"
-                   class="inline-flex items-center px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white text-sm font-medium rounded-xl transition">
+                   class="inline-flex items-center justify-center px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white text-sm font-medium rounded-xl transition w-full sm:w-auto">
                     + New Thread
                 </a>
             @endauth
         </div>
+
 
         @forelse ($threads as $thread)
             <div
