@@ -35,6 +35,11 @@ class Comment extends Model
         return $this->hasMany(__CLASS__, 'parent_id');
     }
 
+    public function votes(): HasMany
+    {
+        return $this->hasMany(CommentVote::class);
+    }
+
     public function parent(): BelongsTo
     {
         return $this->belongsTo(__CLASS__, 'parent_id');
