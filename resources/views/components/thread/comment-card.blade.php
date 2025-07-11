@@ -1,3 +1,8 @@
+@php
+    use App\Models\Comment;
+    /** @var Comment $comment */
+@endphp
+
 @props(['comment'])
 
 <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-5 shadow-sm">
@@ -30,10 +35,15 @@
             <div class="flex items-center justify-between mt-3 text-xs text-gray-500 dark:text-gray-400">
                 <span>Posted {{ $comment->created_at->diffForHumans() }}</span>
 
-                {{-- Optional slot for actions like like/reply/edit --}}
                 <div class="flex gap-3">
                     <button class="hover:text-indigo-600 dark:hover:text-indigo-400">Like</button>
-                    <button class="hover:text-indigo-600 dark:hover:text-indigo-400">Reply</button>
+                    <button
+                        x-data
+                        x-on:click="$dispatch('reply-to-comment', { parentId: {{ $comment->id }} })"
+                        class="hover:text-indigo-600 dark:hover:text-indigo-400"
+                    >
+                        Reply
+                    </button>
                 </div>
             </div>
         </div>
