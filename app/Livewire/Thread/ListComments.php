@@ -17,15 +17,12 @@ class ListComments extends Component
 
     #[Locked]
     public int $threadId;
-
-    public int $page = 1;
-
+    
     #[On('replyCreated')]
     public function refreshReplies(): void
     {
-        $lastPage   = $this->comments()->lastPage();
-        $this->page = $lastPage;
-        $this->dispatch('$refresh');
+        $lastPage = $this->comments()->lastPage();
+        $this->gotoPage($lastPage);
     }
 
     #[Computed]
@@ -34,7 +31,7 @@ class ListComments extends Component
         return Thread::findOrFail($this->threadId)
                      ->comments()
                      ->with('user')
-                     ->paginate(10, ['*'], 'page', $this->page);
+                     ->paginate(10);
     }
 
     public function render(): View
