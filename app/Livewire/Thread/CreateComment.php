@@ -9,6 +9,7 @@ use Livewire\Attributes\Locked;
 use Livewire\Attributes\Validate;
 use Livewire\Attributes\Computed;
 use Illuminate\Support\Facades\Auth;
+use App\Actions\CreateCommentAction;
 
 class CreateComment extends Component
 {
@@ -24,13 +25,13 @@ class CreateComment extends Component
     #[Computed]
     public function parentUserName(): ?string
     {
-        if (!$this->parentId) {
+        if (is_null($this->parentId)) {
             return null;
         }
 
         $parentComment = Comment::find($this->parentId);
 
-        return $parentComment?->user?->name;
+        return $parentComment?->user->name;
     }
 
     #[On('reply-to-comment')]
@@ -39,22 +40,20 @@ class CreateComment extends Component
         $this->parentId = $parentId;
     }
 
-    public function create(): void
+    public function create(CreateCommentAction $action): void
     {
-        $this->validate([
-            'body' => 'required|string|min:3',
-        ]);
+        $this->validate();
 
-        Comment::create([
+        $action->execute([
             'thread_id' => $this->threadId,
             'parent_id' => $this->parentId,
             'body' => $this->body,
-            'user_id' => Auth::id(),
-        ]);
+        ], Auth::user());
 
         $this->reset('body', 'parentId');
 
         $this->dispatch('replyCreated');
     }
+
 }
 
