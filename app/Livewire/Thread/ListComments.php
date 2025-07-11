@@ -9,7 +9,7 @@ use Livewire\Attributes\On;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\Computed;
 
-class ListReplies extends Component
+class ListComments extends Component
 {
     #[Locked]
     public int $threadId;
@@ -17,7 +17,7 @@ class ListReplies extends Component
     #[Computed]
     public function thread(): Thread
     {
-        return Thread::with('replies.user')->findOrFail($this->threadId);
+        return Thread::with('comments.user')->findOrFail($this->threadId);
     }
 
     #[On('replyCreated')]
@@ -28,8 +28,8 @@ class ListReplies extends Component
 
     public function render(): View
     {
-        return view('livewire.thread.list-replies', [
-            'replies' => $this->thread->replies,
+        return view('livewire.thread.list-comments', [
+            'comments' => $this->thread->comments,
         ]);
     }
 }

@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Thread;
 
-use Exception;
-use App\Models\Thread;
-use Livewire\Component;
-use App\Models\Category;
-use Filament\Schemas\Schema;
 use App\Actions\CreateThreadAction;
-use Illuminate\Support\Facades\Auth;
-use Filament\Forms\Components\TextInput;
-use Filament\Schemas\Contracts\HasSchemas;
+use App\Models\Category;
+use App\Models\Thread;
+use Exception;
 use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
+use Filament\Schemas\Contracts\HasSchemas;
+use Filament\Schemas\Schema;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Component;
 
 class CreateThread extends Component implements HasSchemas
 {
     use InteractsWithSchemas;
 
     public Category $category;
-    public ?array   $data = [];
 
+    public ?array $data = [];
 
     public function mount(Category $category): void
     {
@@ -35,11 +35,11 @@ class CreateThread extends Component implements HasSchemas
         return $schema
             ->components([
                 TextInput::make('title')
-                         ->label('Title')
-                         ->required(),
+                    ->label('Title')
+                    ->required(),
 
                 MarkdownEditor::make('content')
-                              ->label('Content'),
+                    ->label('Content'),
             ])
             ->model(Thread::class)
             ->statePath('data');

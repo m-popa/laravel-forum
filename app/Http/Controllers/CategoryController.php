@@ -9,12 +9,12 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         $threads = $category->threads()
-                            ->with('user')
-                            ->latest()
-                            ->paginate(10);
+            ->with('user')
+            ->latest()
+            ->paginate(10);
 
         return view('categories.show', [
-            'threads'  => $threads,
+            'threads' => $threads,
             'category' => $category,
         ]);
     }

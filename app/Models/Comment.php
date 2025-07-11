@@ -9,11 +9,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Reply extends Model
+class Comment extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'body',
+        'user_id',
+        'thread_id',
+        'parent_id',
+    ];
 
     public function user(): BelongsTo
     {
@@ -25,7 +30,7 @@ class Reply extends Model
         return $this->belongsTo(Thread::class);
     }
 
-    public function children(): HasMany
+    public function replies(): HasMany
     {
         return $this->hasMany(__CLASS__, 'parent_id');
     }
@@ -37,7 +42,7 @@ class Reply extends Model
 
     /**
      * @noinspection PhpUnused
-     * Used via Eloquent attribute: $reply->preview_body
+     * Used via Eloquent attribute: $comment->preview_body
      */
     protected function previewBody(): Attribute
     {

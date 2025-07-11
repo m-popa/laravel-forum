@@ -8,7 +8,7 @@
             <label for="textArea" class="w-fit pl-0.5 text-sm">Comment</label>
             <textarea id="textArea"
                       wire:model="body"
-                      class="w-full rounded-xl border border-neutral-300 bg-neutral-200 px-2.5 py-2 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500 disabled:cursor-not-allowed disabled:opacity-75 dark:border-neutral-700 dark:bg-neutral-900/50 dark:focus-visible:outline-purple-400"
+                      class="w-full rounded-xl border border-neutral-300 bg-neutral-200 px-2.5 py-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500 disabled:cursor-not-allowed disabled:opacity-75 dark:border-neutral-700 dark:bg-neutral-900/50 dark:focus-visible:outline-purple-400"
                       rows="3" placeholder="What's on your mind?">
             </textarea>
 
@@ -23,6 +23,5 @@
                 Post a comment
             </button>
         </div>
-
     </form>
 </div>

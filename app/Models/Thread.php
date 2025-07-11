@@ -25,7 +25,6 @@ class Thread extends Model
         'category_id',
     ];
 
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -36,9 +35,9 @@ class Thread extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function replies(): HasMany
+    public function comments(): HasMany
     {
-        return $this->hasMany(Reply::class);
+        return $this->hasMany(Comment::class);
     }
 
     public function sluggable(): array
@@ -53,8 +52,8 @@ class Thread extends Model
     protected function casts(): array
     {
         return [
-            'is_pinned'         => 'boolean',
-            'is_locked'         => 'boolean',
+            'is_pinned' => 'boolean',
+            'is_locked' => 'boolean',
             'last_commented_at' => 'timestamp',
         ];
     }

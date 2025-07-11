@@ -3,32 +3,29 @@
         class="relative bg-gradient-to-b from-violet-100 via-white to-gray-50 dark:from-gray-950 dark:via-gray-950 dark:to-gray-900">
         <div
             class="absolute inset-0 bg-gradient-to-r from-violet-300/10 to-indigo-400/10 dark:from-violet-800/10 dark:to-indigo-800/10 pointer-events-none"></div>
-        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
             <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-4">
                 {{ $category->name }}
             </h1>
+            
             @if ($category->description)
                 <p class="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
                     {{ $category->description }}
                 </p>
             @endif
+
+            <div class="mt-4">
+                @auth
+                    <a href="{{ route('threads.create', ['category' => $category]) }}"
+                       class="inline-flex items-center justify-center px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white text-sm font-medium rounded-xl transition w-full sm:w-auto">
+                        + New Thread
+                    </a>
+                @endauth
+            </div>
         </div>
     </section>
 
-    <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10">
-            <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
-                Threads in "{{ $category->name }}"
-            </h2>
-            @auth
-                <a href="{{ route('threads.create', ['category' => $category]) }}"
-                   class="inline-flex items-center justify-center px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white text-sm font-medium rounded-xl transition w-full sm:w-auto">
-                    + New Thread
-                </a>
-            @endauth
-        </div>
-
-
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         @forelse ($threads as $thread)
             <div
                 class="mb-6 mx-auto bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-5 sm:p-6 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col gap-5">
@@ -83,7 +80,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                       d="M7 8h10M7 12h6m-6 4h4m9-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
-                            <span>{{ $thread->replies->count() }} replies</span>
+                            <span>{{ $thread->comments->count() }} comments</span>
                         </div>
                     </div>
                 </div>

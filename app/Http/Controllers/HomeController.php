@@ -11,7 +11,7 @@ class HomeController extends Controller
     {
         return view('home', [
             'categories' => Category::cachedCategories(),
-            'settings'   => $settings,
+            'settings' => $settings,
         ]);
     }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,15 +9,19 @@
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet"/>
-
+    <link href="https://fonts.bunny.net/css?family=Instrument Sans:400,500,600&display=swap" rel="stylesheet"/>
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
     <!-- Scripts -->
     @filamentStyles
     @filamentScripts
     @vite(['resources/css/app.css',  'resources/js/app.js'])
 
 </head>
-<body class="min-h-screen flex flex-col font-sans antialiased bg-primary-50 dark:bg-gray-900 dark">
+<body class="min-h-screen flex flex-col font-sans antialiased bg-primary-50 dark:bg-gray-900">
 
 <header class="bg-white/90 dark:bg-gray-950/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
@@ -55,6 +59,7 @@
         </nav>
     </div>
 </header>
+
 <div class="flex-grow">
     <main>
         {{ $slot }}

@@ -11,20 +11,8 @@ class CategoryFactory extends Factory
 
     public function definition(): array
     {
-        $names = [
-            'General Discussion',
-            'Laravel Help',
-            'Laravel Packages',
-            'Jobs & Freelance',
-            'Tutorials & Resources',
-            'Announcements',
-            'Off-Topic',
-        ];
-
-        $name = $this->faker->unique()->randomElement($names);
-
         return [
-            'name'        => $name,
+            'name' => $this->faker->unique()->words(3, true),
             'description' => $this->faker->sentence(12),
         ];
     }
