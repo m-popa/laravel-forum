@@ -13,7 +13,9 @@ class VoteButton extends Component
 
     public ?bool $userVote = null;
 
-    public int $votesCount = 0; // NEW
+    public int $votesCount = 0;
+
+    public bool $isVoting = false;
 
     public function mount(): void
     {
@@ -33,8 +35,16 @@ class VoteButton extends Component
 
     public function vote(bool $isLiked, ToggleCommentVoteAction $action): void
     {
+        if ($this->isVoting) {
+            return;
+        }
+
+        $this->isVoting = true;
+
         $this->userVote = $action->execute($this->comment, $isLiked, Auth::user());
-        $this->comment->refresh(); // Refresh model to get latest votes
+        $this->comment->refresh();
         $this->updateVotesCount();
+
+        $this->isVoting = false;
     }
 }
