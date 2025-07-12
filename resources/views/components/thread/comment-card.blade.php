@@ -48,7 +48,7 @@
             <!-- Bottom row: votes left, reply button right -->
             <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mt-4">
                 @if (auth()->id() !== $comment->user_id)
-                    <livewire:create-comment-vote :comment="$comment" :wire:key="'vote-'.$comment->id"/>
+                    <livewire:comment.vote-button :comment="$comment" :wire:key="'vote-'.$comment->id"/>
 
                     <button
                         x-data

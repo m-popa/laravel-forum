@@ -2,14 +2,14 @@
 
 namespace App\Livewire\Thread;
 
-use Livewire\Component;
-use App\Models\Comment;
-use Livewire\Attributes\On;
-use Livewire\Attributes\Locked;
-use Livewire\Attributes\Validate;
-use Livewire\Attributes\Computed;
-use Illuminate\Support\Facades\Auth;
 use App\Actions\CreateCommentAction;
+use App\Models\Comment;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Locked;
+use Livewire\Attributes\On;
+use Livewire\Attributes\Validate;
+use Livewire\Component;
 
 class CreateComment extends Component
 {
@@ -21,7 +21,6 @@ class CreateComment extends Component
     #[Validate('required|string|min:3')]
     public string $body = '';
 
-
     #[Computed]
     public function parentPreview(): ?array
     {
@@ -31,7 +30,7 @@ class CreateComment extends Component
 
         $parentComment = Comment::find($this->parentId);
 
-        if (!$parentComment) {
+        if (! $parentComment) {
             return null;
         }
 
@@ -61,6 +60,4 @@ class CreateComment extends Component
 
         $this->dispatch('replyCreated');
     }
-
 }
-

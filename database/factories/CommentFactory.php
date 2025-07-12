@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
-use App\Models\Thread;
 use App\Models\Comment;
+use App\Models\Thread;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CommentFactory extends Factory
@@ -26,7 +26,7 @@ class CommentFactory extends Factory
      */
     public function nested(Comment $parent): Factory
     {
-        return $this->state(fn() => [
+        return $this->state(fn () => [
             'thread_id' => $parent->thread_id,
             'parent_id' => $parent->id,
         ]);
