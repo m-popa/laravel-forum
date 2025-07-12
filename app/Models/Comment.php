@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Comment extends Model
 {
@@ -40,30 +40,6 @@ class Comment extends Model
         return $this->belongsTo(__CLASS__, 'parent_id');
     }
 
-    public function toggleVote(bool $isLiked, User $user): ?bool
-    {
-        $vote = $this->votes()->firstWhere('user_id', $user->id);
-
-        if ($vote) {
-            if ($vote->isLiked() === $isLiked) {
-                $vote->delete();
-
-                return null;
-            }
-
-            $vote->update(['is_liked' => $isLiked]);
-
-            return $isLiked;
-        }
-
-        $this->votes()->create([
-            'user_id' => $user->id,
-            'is_liked' => $isLiked,
-        ]);
-
-        return $isLiked;
-    }
-
     public function votes(): HasMany
     {
         return $this->hasMany(CommentVote::class);
@@ -76,7 +52,7 @@ class Comment extends Model
     protected function previewBody(): Attribute
     {
         return Attribute::make(
-            get: fn () => Str::limit($this->body)
+            get: fn() => Str::limit($this->body)
         )->shouldCache();
     }
 }
