@@ -9,6 +9,7 @@ use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\Computed;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class ListComments extends Component
@@ -29,7 +30,12 @@ class ListComments extends Component
     {
         return Thread::findOrFail($this->threadId)
                      ->comments()
-                     ->with('user')
+                     ->with([
+                         'user',
+                         'votes' => function ($query) {
+                             $query->where('user_id', Auth::id());
+                         },
+                     ])
                      ->paginate(10);
     }
 

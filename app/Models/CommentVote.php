@@ -23,6 +23,16 @@ class CommentVote extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function isLiked(): bool
+    {
+        return $this->is_liked === true;
+    }
+
+    public function isDisliked(): bool
+    {
+        return $this->is_liked === false;
+    }
+
     protected function casts(): array
     {
         return [
