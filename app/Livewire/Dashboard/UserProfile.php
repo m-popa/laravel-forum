@@ -8,6 +8,7 @@ use Livewire\Component;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
 use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
@@ -55,15 +56,15 @@ class UserProfile extends Component implements HasSchemas
     {
         $this->validate();
 
-        Auth::user()->update($this->data);
+        Auth::user()->update($this->form->getState());
 
         $this->form->model()->saveRelationships();
 
-        $this->redirectRoute('dashboard');
-    }
+        Notification::make()
+                    ->title('Profile updated successfully')
+                    ->success()
+                    ->send();
 
-    public function render()
-    {
-        return view('livewire.dashboard.user-profile');
+        $this->redirectRoute('dashboard');
     }
 }
