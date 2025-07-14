@@ -7,7 +7,7 @@
             <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-4">
                 {{ $category->name }}
             </h1>
-            
+
             @if ($category->description)
                 <p class="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
                     {{ $category->description }}
@@ -65,11 +65,10 @@
                         <!-- Views -->
                         <div
                             class="flex items-center gap-1 hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8"
-                                 viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                      d="M12 4.5C7.5 4.5 3.735 8.015 2.25 12c1.485 3.985 5.25 7.5 9.75 7.5s8.265-3.515 9.75-7.5C20.265 8.015 16.5 4.5 12 4.5zM12 15a3 3 0 100-6 3 3 0 000 6z"/>
-                            </svg>
+                            <x-filament::icon-button
+                                icon="heroicon-o-eye"
+                                color="gray"
+                            />
                             <span>{{ $thread->views }}</span>
                         </div>
 
