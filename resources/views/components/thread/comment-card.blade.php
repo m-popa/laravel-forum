@@ -10,7 +10,7 @@
         <!-- Header: avatar + name + timestamp -->
         <div class="flex items-center gap-3">
             <img
-                src="https://i.pravatar.cc/40?u={{ $comment->user->id }}"
+                src="{{ $comment->user->avatar_url }}"
                 alt="{{ $comment->user->name }}"
                 class="w-12 h-12 rounded-full object-cover flex-shrink-0"
             />

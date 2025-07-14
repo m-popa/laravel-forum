@@ -52,7 +52,7 @@
 
                     <!-- Author -->
                     <div class="flex items-center gap-3">
-                        <img src="https://i.pravatar.cc/40?u=author@example.com" alt="Author avatar"
+                        <img src="{{ $thread->user->avatar_url }}" alt="{{ $thread->user->name }}"
                              class="w-9 h-9 rounded-full border border-gray-300 dark:border-gray-700">
                         <span class="font-medium text-gray-700 dark:text-gray-300">
                             {{ $thread->user->name }}

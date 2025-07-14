@@ -14,7 +14,8 @@
                     <div
                         class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden mb-6">
                         <div class="p-6">
-                            <div class="mb-4">
+                            <livewire:dashboard.user-profile/>
+                            <div class="my-4">
                                 <label for="theme"
                                        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                                     {{ __('Theme') }}

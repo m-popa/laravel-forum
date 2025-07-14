@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Instrument Sans:400,500,600&display=swap" rel="stylesheet"/>
 
-    
+
     <style>
         [x-cloak] {
             display: none !important;
@@ -37,7 +37,9 @@
             @auth
                 <div class="flex items-center gap-4">
                     <span class="text-sm text-gray-700 dark:text-gray-300">
-                        Welcome, {{ Auth::user()->name }}
+                        <a href="{{ route('dashboard') }}">
+                            Welcome, {{ Auth::user()->name }}
+                        </a>
                     </span>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
