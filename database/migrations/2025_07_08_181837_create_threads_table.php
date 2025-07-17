@@ -1,19 +1,20 @@
 <?php
 
-use App\Models\Category;
 use App\Models\User;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Enums\Status;
+use App\Models\Category;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration
-{
+return new class extends Migration {
     public function up(): void
     {
         Schema::create('threads', static function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('slug')->nullable();
+            $table->string('status')->default(Status::Published);
             $table->text('content');
             $table->unsignedBigInteger('views')->default(0);
             $table->boolean('is_pinned')->default(false);

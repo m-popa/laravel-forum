@@ -36,18 +36,35 @@
         <nav>
             @auth
                 <div class="flex items-center gap-4">
-                    <span class="text-sm text-gray-700 dark:text-gray-300">
-                        <a href="{{ route('dashboard') }}">
-                            Welcome, {{ Auth::user()->name }}
-                        </a>
-                    </span>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit"
-                                class="text-sm font-medium text-violet-600 dark:text-violet-400 hover:underline">
-                            Logout
-                        </button>
-                    </form>
+                    <div class="text-gray-700 dark:text-gray-300">
+                        <x-dropdown>
+                            <x-slot name="trigger">
+                                <button class="hover:text-violet-600 dark:hover:text-violet-400">
+                                    {{ Auth::user()->name }}
+                                </button>
+                            </x-slot>
+
+                            <x-slot name="content">
+                                <x-dropdown-link :href="route('dashboard')">
+                                    {{ __('Dashboard') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('profile.edit')">
+                                    {{ __('Profile') }}
+                                </x-dropdown-link>
+
+                                <x-dropdown-link>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit"
+                                                class="text-sm font-medium text-violet-600 dark:text-violet-400 hover:underline">
+                                            Logout
+                                        </button>
+                                    </form>
+                                </x-dropdown-link>
+
+                            </x-slot>
+                        </x-dropdown>
+                    </div>
                 </div>
             @else
                 <div class="flex items-center gap-4 text-sm">

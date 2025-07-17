@@ -35,7 +35,7 @@
         @endif
 
         <p class="text-sm text-gray-800 dark:text-gray-300 prose dark:prose-invert">
-            {!! str($comment->body)->markdown()->sanitizeHtml() !!}
+            {{ $this->commentInfolist }}
         </p>
 
         @auth

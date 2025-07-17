@@ -1,13 +1,25 @@
 <div
     x-data="{
         scrollAndFocus() {
-            $nextTick(() => {
-                $refs.textArea?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                $refs.textArea?.focus();
+            this.$nextTick(() => {
+                const el = document.getElementById('comment-editor');
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                    const focusable = el.querySelector('[contenteditable], textarea, input');
+
+                    if (focusable) {
+                        focusable.focus();
+                    } else {
+                        el.focus();
+                    }
+                }
             });
         }
     }"
-    @reply-to-comment.window="scrollAndFocus()">
+    @reply-to-comment.window="scrollAndFocus()"
+>
+
 
     <h2 class="text-2xl font-bold text-gray-900 dark:text-white my-6">
         {{ __('Post a comment') }}
@@ -41,9 +53,9 @@
 
 
     <form wire:submit.prevent="create">
-        <div class="flex w-full flex-col gap-1 text-neutral-800 dark:text-neutral-300">
+        <div class="flex w-full flex-col gap-1 text-neutral-800 dark:text-neutral-300" id="comment-editor">
             {{ $this->form }}
-            
+
             <button type="submit"
                     class="mt-4 self-start rounded-xl bg-primary border border-primary px-4 py-2 text-sm font-medium tracking-wide text-on-primary transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:opacity-100 disabled:opacity-75 disabled:cursor-not-allowed dark:bg-primary-dark dark:border-primary-dark dark:text-on-primary-dark dark:focus-visible:outline-primary-dark">
                 {{ __('Post a comment') }}

@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Enums\Status;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\InteractsWithStatus;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,10 +16,12 @@ class Thread extends Model
 {
     use HasFactory;
     use Sluggable;
+    use InteractsWithStatus;
 
     protected $fillable = [
         'title',
         'slug',
+        'status',
         'content',
         'views',
         'is_pinned',
@@ -73,6 +77,8 @@ class Thread extends Model
     protected function casts(): array
     {
         return [
+            'status' => Status::class,
+            'views' => 'integer',
             'is_pinned' => 'boolean',
             'is_locked' => 'boolean',
             'last_commented_at' => 'timestamp',

@@ -41,6 +41,7 @@ class UserProfile extends Component implements HasSchemas
                                             ->label('Avatar')
                                             ->model($this->user)
                                             ->collection('avatars')
+                                            ->imageEditor()
                                             ->avatar(),
 
                 TextInput::make('name')

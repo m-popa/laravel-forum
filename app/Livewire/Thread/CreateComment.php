@@ -60,7 +60,6 @@ class CreateComment extends Component implements HasSchemas
         ];
     }
 
-
     #[On('reply-to-comment')]
     public function setParent(int $parentId): void
     {
