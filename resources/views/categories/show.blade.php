@@ -28,58 +28,91 @@
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         @forelse ($threads as $thread)
             <div
-                class="mb-6 mx-auto bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-5 sm:p-6 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col gap-5">
-
-                <!-- Title and Time -->
-                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-4">
-                    <a href="{{ route('threads.show', ['thread' => $thread, 'category' => $category]) }}"
-                       class="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white hover:text-violet-600 dark:hover:text-violet-400 transition-colors line-clamp-2">
+                class="mb-6 mx-auto max-w-4xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-3xl p-6 shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col sm:flex-row sm:justify-between gap-6">
+                <!-- Left Content: Title + Snippet -->
+                <div class="flex-1 flex flex-col justify-between">
+                    <a href="{{ $thread->url() }}"
+                       class="block text-2xl font-semibold text-gray-900 dark:text-white hover:text-violet-600 dark:hover:text-violet-400 line-clamp-2 transition-colors"
+                       tabindex="0">
                         {{ $thread->title }}
                     </a>
-                    <span class="text-xs text-gray-500 dark:text-gray-400 sm:whitespace-nowrap sm:text-sm min-w-max">
-                        {{ $thread->created_at->diffForHumans() }}
-                    </span>
+
+                    <p class="mt-3 text-gray-700 dark:text-gray-300 text-sm leading-relaxed line-clamp-3">
+                        {{ $thread->preview_body }}
+                    </p>
                 </div>
 
-                <!-- Preview Snippet -->
-                <p class="text-sm leading-relaxed text-gray-700 dark:text-gray-300 line-clamp-3">
-                    {{ $thread->preview_body }}
-                </p>
-
-                <!-- Author and Meta Info -->
+                <!-- Right Content: Meta Info -->
                 <div
-                    class="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-5 text-sm text-gray-500 dark:text-gray-400 mt-auto">
+                    class="flex flex-col sm:items-end justify-between min-w-[200px] gap-5 text-gray-500 dark:text-gray-400 text-sm">
+                    <span class="whitespace-nowrap">
+                        {{ $thread->created_at->diffForHumans() }}
+                    </span>
 
-                    <!-- Author -->
-                    <div class="flex items-center gap-3">
-                        <img src="{{ $thread->user->avatar_url }}" alt="{{ $thread->user->name }}"
-                             class="w-9 h-9 rounded-full border border-gray-300 dark:border-gray-700">
-                        <span class="font-medium text-gray-700 dark:text-gray-300">
-                            {{ $thread->user->name }}
-                        </span>
-                    </div>
-
-                    <!-- Stats -->
-                    <div class="flex gap-6 text-gray-500 dark:text-gray-400">
-
-                        <!-- Views -->
-                        <div
-                            class="flex items-center gap-1 hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
-                            <x-filament::icon-button
-                                icon="heroicon-o-eye"
-                                color="gray"
+                    <div class="flex items-center gap-4">
+                        <!-- Author -->
+                        <div class="flex items-center gap-3">
+                            <img
+                                src="{{ $thread->user->avatar_url }}"
+                                alt="Jane Doe"
+                                class="w-10 h-10 rounded-full border border-gray-300 dark:border-gray-700"
+                                loading="lazy"
                             />
-                            <span>{{ $thread->views }}</span>
+                            <span class="font-medium text-gray-800 dark:text-gray-200">Jane Doe</span>
                         </div>
 
-                        <!-- Replies -->
-                        <div
-                            class="flex items-center gap-1 hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                      d="M7 8h10M7 12h6m-6 4h4m9-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            <span>{{ $thread->comments->count() }} comments</span>
+                        <!-- Stats -->
+                        <div class="flex gap-6">
+                            <div
+                                class="flex items-center gap-1 hover:text-violet-600 dark:hover:text-violet-400 cursor-pointer transition-colors"
+                                aria-label="Views"
+                                role="button"
+                                tabindex="0"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="w-5 h-5"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    viewBox="0 0 24 24"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    <path
+                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                </svg>
+                                <span>
+                                    {{ $thread->views }}
+                                </span>
+                            </div>
+
+                            <div
+                                class="flex items-center gap-1 hover:text-violet-600 dark:hover:text-violet-400 cursor-pointer transition-colors"
+                                aria-label="Comments"
+                                role="button"
+                                tabindex="0"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="w-5 h-5"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    viewBox="0 0 24 24"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <path d="M17 8h2a2 2 0 012 2v7a2 2 0 01-2 2h-6l-4 4v-4H7a2 2 0 01-2-2v-1"/>
+                                    <path d="M7 8V6a2 2 0 012-2h6a2 2 0 012 2v2"/>
+                                </svg>
+                                <span>
+                                    {{ $thread->comments->count() }}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>

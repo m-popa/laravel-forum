@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
-use Cviebrock\EloquentSluggable\Sluggable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Thread extends Model
 {
@@ -47,6 +49,25 @@ class Thread extends Model
                 'source' => 'title',
             ],
         ];
+    }
+
+    public function url(): string
+    {
+        return route('threads.show', [
+            'category' => $this->category->slug,
+            'thread' => $this->slug,
+        ]);
+    }
+
+    /**
+     * @noinspection PhpUnused
+     * Used via Eloquent attribute: $thread->preview_body
+     */
+    protected function previewBody(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => Str::limit($this->content)
+        )->shouldCache();
     }
 
     protected function casts(): array
