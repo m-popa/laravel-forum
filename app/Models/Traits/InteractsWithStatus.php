@@ -26,7 +26,7 @@ trait InteractsWithStatus
         return $this->setStatus(Status::Published);
     }
 
-    public function setStatus(Status $status): static
+    protected function setStatus(Status $status): static
     {
         $this->update(['status' => $status]);
         return $this;
@@ -47,7 +47,8 @@ trait InteractsWithStatus
         return $this->hasStatus(Status::Published);
     }
 
-    public function hasStatus(Status $status): bool
+
+    protected function hasStatus(Status $status): bool
     {
         return $this->status === $status;
     }
