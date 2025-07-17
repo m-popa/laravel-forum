@@ -6,7 +6,7 @@
                 alt="{{ $comment->user->name }}"
                 class="w-12 h-12 rounded-full object-cover flex-shrink-0"
             />
-            
+
             <div class="min-w-0">
                 <h4 class="text-base font-semibold text-gray-900 dark:text-white truncate">
                     {{ $comment->user->name }}
@@ -34,8 +34,8 @@
             </div>
         @endif
 
-        <p class="text-sm text-gray-800 dark:text-gray-300">
-            {{ $comment->body }}
+        <p class="text-sm text-gray-800 dark:text-gray-300 prose dark:prose-invert">
+            {!! str($comment->body)->markdown()->sanitizeHtml() !!}
         </p>
 
         @auth

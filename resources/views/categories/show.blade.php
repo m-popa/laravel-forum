@@ -28,7 +28,7 @@
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         @forelse ($threads as $thread)
             <div
-                class="mb-6 mx-auto max-w-4xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-3xl p-6 shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col sm:flex-row sm:justify-between gap-6">
+                class="mb-6 mx-auto max-w-7xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-3xl p-6 shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col sm:flex-row sm:justify-between gap-6">
                 <!-- Left Content: Title + Snippet -->
                 <div class="flex-1 flex flex-col justify-between">
                     <a href="{{ $thread->url() }}"
@@ -67,23 +67,9 @@
                                 class="flex items-center gap-1 hover:text-violet-600 dark:hover:text-violet-400 cursor-pointer transition-colors"
                                 aria-label="Views"
                                 role="button"
-                                tabindex="0"
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    class="w-5 h-5"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="2"
-                                    viewBox="0 0 24 24"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    aria-hidden="true"
-                                >
-                                    <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                                    <path
-                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                                </svg>
+                                tabindex="0">
+
+                                <x-heroicon-o-eye class="w-5 h-5"/>
                                 <span>
                                     {{ $thread->views }}
                                 </span>
@@ -93,22 +79,9 @@
                                 class="flex items-center gap-1 hover:text-violet-600 dark:hover:text-violet-400 cursor-pointer transition-colors"
                                 aria-label="Comments"
                                 role="button"
-                                tabindex="0"
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    class="w-5 h-5"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="2"
-                                    viewBox="0 0 24 24"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    aria-hidden="true"
-                                >
-                                    <path d="M17 8h2a2 2 0 012 2v7a2 2 0 01-2 2h-6l-4 4v-4H7a2 2 0 01-2-2v-1"/>
-                                    <path d="M7 8V6a2 2 0 012-2h6a2 2 0 012 2v2"/>
-                                </svg>
+                                tabindex="0">
+
+                                <x-heroicon-o-chat-bubble-left class="w-5 h-5"/>
                                 <span>
                                     {{ $thread->comments->count() }}
                                 </span>

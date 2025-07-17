@@ -40,23 +40,10 @@
     @endif
 
 
-    <form wire:submit.prevent=" create">
+    <form wire:submit.prevent="create">
         <div class="flex w-full flex-col gap-1 text-neutral-800 dark:text-neutral-300">
-            <label for="textArea" class="w-fit pl-0.5 text-sm">
-                {{ __('Comment') }}
-            </label>
-            <textarea id="textArea"
-                      x-ref="textArea"
-                      wire:model="body"
-                      class="w-full rounded-xl border border-neutral-300 bg-neutral-200 px-3 py-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500 disabled:cursor-not-allowed disabled:opacity-75 dark:border-neutral-700 dark:bg-neutral-900/50 dark:focus-visible:outline-purple-400"
-                      rows="3" placeholder="What's on your mind?"></textarea>
-
-            @error('body')
-            <span class="text-sm text-red-500 dark:text-red-400">
-                {{ $message }}
-            </span>
-            @enderror
-
+            {{ $this->form }}
+            
             <button type="submit"
                     class="mt-4 self-start rounded-xl bg-primary border border-primary px-4 py-2 text-sm font-medium tracking-wide text-on-primary transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:opacity-100 disabled:opacity-75 disabled:cursor-not-allowed dark:bg-primary-dark dark:border-primary-dark dark:text-on-primary-dark dark:focus-visible:outline-primary-dark">
                 {{ __('Post a comment') }}
