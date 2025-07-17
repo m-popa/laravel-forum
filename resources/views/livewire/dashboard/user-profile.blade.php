@@ -2,6 +2,7 @@
     <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white my-6">
         {{ __('Profile') }}
     </h2>
+    
     <form wire:submit="create" class="mt-4">
         {{ $this->form }}
 

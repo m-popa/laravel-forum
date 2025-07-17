@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
-use App\Models\Comment;
 use App\Models\User;
+use App\Models\Comment;
 
 final class CreateCommentAction
 {
-    public function execute(array $data, User $user): Comment
+    public function execute(User $user, array $data): Comment
     {
         return Comment::create([
             'thread_id' => $data['thread_id'],
