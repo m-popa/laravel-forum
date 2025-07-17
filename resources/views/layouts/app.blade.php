@@ -24,7 +24,7 @@
     @vite(['resources/css/app.css',  'resources/js/app.js'])
 
 </head>
-<body class="min-h-screen flex flex-col font-sans antialiased dark:bg-gray-900">
+<body class="min-h-screen flex flex-col font-sans antialiased bg-white dark:bg-gray-900">
 
 <header class="dark:bg-gray-900 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">

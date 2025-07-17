@@ -34,20 +34,18 @@
             {{ $this->commentInfolist }}
         </p>
 
-        @auth
-            <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mt-4">
-                @can('reply', $comment)
-                    <livewire:comment.vote-button
-                        :comment="$comment"
-                        wire:key="vote-{{ $comment->id }}"
-                    />
+        @if(auth()->check() && auth()->user()->can('reply', $comment))
+            <div class="mt-4 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                <livewire:comment.vote-button
+                    :comment="$comment"
+                    wire:key="vote-{{ $comment->id }}"
+                />
 
-                    <button wire:click="replyToComment"
-                            class="text-indigo-600 dark:text-indigo-400 font-medium whitespace-nowrap hover:underline">
-                        {{ __('Reply') }}
-                    </button>
-                @endcan
+                <button wire:click="replyToComment"
+                        class="font-medium text-indigo-600 dark:text-indigo-400 whitespace-nowrap hover:underline">
+                    {{ __('Reply') }}
+                </button>
             </div>
-        @endauth
+        @endif
     </div>
 </div>
