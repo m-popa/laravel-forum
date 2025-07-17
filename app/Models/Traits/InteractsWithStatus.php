@@ -47,7 +47,6 @@ trait InteractsWithStatus
         return $this->hasStatus(Status::Published);
     }
 
-
     protected function hasStatus(Status $status): bool
     {
         return $this->status === $status;

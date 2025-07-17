@@ -65,7 +65,5 @@ class UserProfile extends Component implements HasSchemas
                     ->title('Profile updated successfully')
                     ->success()
                     ->send();
-
-        $this->redirectRoute('dashboard');
     }
 }
