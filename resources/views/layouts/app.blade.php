@@ -24,9 +24,9 @@
     @vite(['resources/css/app.css',  'resources/js/app.js'])
 
 </head>
-<body class="min-h-screen flex flex-col font-sans antialiased bg-primary-50 dark:bg-gray-900">
+<body class="min-h-screen flex flex-col font-sans antialiased dark:bg-gray-900">
 
-<header class="bg-white/90 dark:bg-gray-950/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
+<header class="dark:bg-gray-900 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
         <a href="{{ url('/') }}"
            class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white hover:text-violet-600 dark:hover:text-violet-400 transition">
@@ -45,9 +45,14 @@
                             </x-slot>
 
                             <x-slot name="content">
+                                <x-dropdown-link :href="route('filament.admin.pages.dashboard')">
+                                    {{ __('Admin') }}
+                                </x-dropdown-link>
+
                                 <x-dropdown-link :href="route('dashboard')">
                                     {{ __('Dashboard') }}
                                 </x-dropdown-link>
+
                                 <x-dropdown-link :href="route('profile.edit')">
                                     {{ __('Profile') }}
                                 </x-dropdown-link>

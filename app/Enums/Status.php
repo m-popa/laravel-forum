@@ -2,10 +2,13 @@
 
 namespace App\Enums;
 
+use BackedEnum;
+use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
+use Filament\Support\Contracts\HasColor;
 use Illuminate\Contracts\Support\Htmlable;
 
-enum Status: int implements HasLabel
+enum Status: int implements HasLabel, HasIcon, HasColor
 {
     case Published = 1;
     case Pending = 2;
@@ -17,6 +20,24 @@ enum Status: int implements HasLabel
             self::Published => 'Published',
             self::Pending   => 'Pending',
             self::Rejected  => 'Rejected',
+        };
+    }
+
+    public function getIcon(): string|BackedEnum|null
+    {
+        return match ($this) {
+            self::Published => 'heroicon-s-check-circle',
+            self::Pending   => 'heroicon-s-question-mark-circle',
+            self::Rejected  => 'heroicon-s-x-circle',
+        };
+    }
+
+    public function getColor(): string|array|null
+    {
+        return match ($this) {
+            self::Published => 'success',
+            self::Pending   => 'warning',
+            self::Rejected  => 'danger',
         };
     }
 }

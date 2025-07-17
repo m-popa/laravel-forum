@@ -1,11 +1,7 @@
 <div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-5 shadow-md max-w-full">
     <div class="flex flex-col gap-4">
         <div class="flex items-center gap-3">
-            <img
-                src="{{ $comment->user->avatar_url }}"
-                alt="{{ $comment->user->name }}"
-                class="w-12 h-12 rounded-full object-cover flex-shrink-0"
-            />
+            <x-user.avatar :user="$comment->user"/>
 
             <div class="min-w-0">
                 <h4 class="text-base font-semibold text-gray-900 dark:text-white truncate">

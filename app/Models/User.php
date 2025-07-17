@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Spatie\Image\Enums\Fit;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -42,8 +43,6 @@ class User extends Authenticatable implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('avatars')
-             ->useFallbackUrl(asset('no-avatar.png'))
-             ->useFallbackPath(public_path('no-avatar.png'))
              ->singleFile();
     }
 
@@ -62,6 +61,14 @@ class User extends Authenticatable implements HasMedia
     public function getFilamentAvatarUrl(): ?string
     {
         return $this->avatar_url;
+    }
+
+    public function initials(): string
+    {
+        return Str::of($this->name)
+                  ->explode(' ')
+                  ->map(fn(string $name) => Str::of($name)->substr(0, 1))
+                  ->implode('');
     }
 
 

@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Thread;
+use App\Models\Category;
+use App\Jobs\IncrementThreadViewsJob;
 
 class ThreadController extends Controller
 {
     public function show(Category $category, Thread $thread)
     {
+        IncrementThreadViewsJob::dispatch($thread);
+
         return view('threads.show', [
             'thread' => $thread,
             'category' => $category,

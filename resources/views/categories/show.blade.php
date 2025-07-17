@@ -52,13 +52,10 @@
                     <div class="flex items-center gap-4">
                         <!-- Author -->
                         <div class="flex items-center gap-3">
-                            <img
-                                src="{{ $thread->user->avatar_url }}"
-                                alt="Jane Doe"
-                                class="w-10 h-10 rounded-full border border-gray-300 dark:border-gray-700"
-                                loading="lazy"
-                            />
-                            <span class="font-medium text-gray-800 dark:text-gray-200">Jane Doe</span>
+                            <x-user.avatar :user="$thread->user"/>
+                            <span class="font-medium text-gray-800 dark:text-gray-200">
+                                {{ $thread->user->name }}
+                            </span>
                         </div>
 
                         <!-- Stats -->

@@ -7,9 +7,9 @@ use App\Enums\Status;
 use Filament\Schemas\Schema;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\MarkdownEditor;
 
 class ThreadForm
 {
@@ -30,18 +30,21 @@ class ThreadForm
                       ->enum(Status::class)
                       ->required(),
 
-                Textarea::make('content')
-                        ->columnSpanFull(),
+                MarkdownEditor::make('content')
+                              ->columnSpanFull(),
 
                 TextInput::make('views')
                          ->required()
                          ->numeric()
-                         ->default(0),
+                         ->default(0)
+                         ->columnSpanFull(),
 
                 Toggle::make('is_pinned')
+                      ->inlineLabel()
                       ->required(),
 
                 Toggle::make('is_locked')
+                      ->inlineLabel()
                       ->required(),
 
                 Select::make('user_id')
