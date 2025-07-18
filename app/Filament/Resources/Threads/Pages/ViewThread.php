@@ -16,62 +16,36 @@ class ViewThread extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            Action::make('publish')
-                  ->label('Publish')
-                  ->action(function (Thread $thread) {
-                      $thread->markAsPublished();
-                  })
-                  ->visible(fn(Thread $record) => $record->isPending())
-                  ->icon('heroicon-s-check-circle')
-                  ->color('success'),
-
-            Action::make('reject')
-                  ->label('Reject')
-                  ->action(function (Thread $record) {
-                      $record->markAsRejected();
-                  })
-                  ->visible(fn(Thread $record) => $record->isPending())
-                  ->icon('heroicon-s-x-circle')
-                  ->color('secondary'),
-
             Action::make('pin')
                   ->label('Pin')
-                  ->icon(Heroicon::OutlinedRectangleStack)
-                  ->action(function (Thread $record) {
-                      $record->update(['is_pinned' => true]);
-                  })
-                  ->visible(fn(Thread $record) => !$record->is_pinned)
+                  ->icon(Heroicon::ArrowsPointingIn)
+                  ->action(fn(Thread $record) => $record->pin())
+                  ->visible(fn(Thread $record) => $record->isNotPinned())
                   ->color('success'),
 
             Action::make('unpin')
                   ->label('Unpin')
-                  ->icon(Heroicon::OutlinedRectangleStack)
-                  ->action(function (Thread $record) {
-                      $record->update(['is_pinned' => false]);
-                  })
-                  ->visible(fn(Thread $record) => $record->is_pinned)
+                  ->icon(Heroicon::ArrowsPointingOut)
+                  ->action(fn(Thread $record) => $record->unpin())
+                  ->visible(fn(Thread $record) => $record->isPinned())
                   ->color('gray'),
 
             Action::make('lock')
                   ->label('Lock')
                   ->icon(Heroicon::OutlinedLockClosed)
-                  ->action(function (Thread $record) {
-                      $record->update(['is_locked' => true]);
-                  })
-                  ->visible(fn(Thread $record) => !$record->is_locked)
+                  ->action(fn(Thread $record) => $record->lock())
+                  ->visible(fn(Thread $record) => $record->isNotLocked())
                   ->color('danger'),
 
             Action::make('unlock')
                   ->label('Unlock')
                   ->icon(Heroicon::OutlinedLockOpen)
-                  ->action(function (Thread $record) {
-                      $record->update(['is_locked' => false]);
-                  })
-                  ->visible(fn(Thread $record) => $record->is_locked)
+                  ->action(fn(Thread $record) => $record->unlock())
+                  ->visible(fn(Thread $record) => $record->isLocked())
                   ->color('gray'),
 
-
-            EditAction::make(),
+            EditAction::make()
+                      ->icon(Heroicon::OutlinedPencil),
         ];
     }
 }

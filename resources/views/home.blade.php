@@ -3,7 +3,6 @@
     <section
         class="bg-linear-to-b from-surface-base via-transparent border-b border-gray-200 dark:border-gray-800">
         <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-8">
-            
             <!-- Title -->
             <div class="max-w-3xl text-center mx-auto">
                 <h1 class="block font-medium text-gray-200 text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
@@ -30,7 +29,7 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             @forelse ($categories as $category)
-                <a href="{{ route('categories.show', $category) }}"
+                <a href="{{ route('threads.index', $category) }}"
                    class="group block bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 transition hover:shadow-xl hover:border-violet-500 dark:hover:border-violet-400">
                     <div class="mb-4">
                         <h3 class="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-violet-700 dark:group-hover:text-violet-400 transition">

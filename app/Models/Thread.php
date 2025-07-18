@@ -63,6 +63,46 @@ class Thread extends Model
         ]);
     }
 
+    public function lock(): void
+    {
+        $this->update(['is_locked' => true]);
+    }
+
+    public function unlock(): void
+    {
+        $this->update(['is_locked' => false]);
+    }
+
+    public function pin(): void
+    {
+        $this->update(['is_pinned' => true]);
+    }
+
+    public function unpin(): void
+    {
+        $this->update(['is_pinned' => false]);
+    }
+
+    public function isNotPinned(): bool
+    {
+        return !$this->isPinned();
+    }
+
+    public function isPinned(): bool
+    {
+        return $this->is_pinned;
+    }
+
+    public function isNotLocked(): bool
+    {
+        return !$this->isLocked();
+    }
+
+    public function isLocked(): bool
+    {
+        return $this->is_locked;
+    }
+
     /**
      * @noinspection PhpUnused
      * Used via Eloquent attribute: $thread->preview_body

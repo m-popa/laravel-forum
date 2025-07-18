@@ -2,8 +2,11 @@
 
 namespace App\Filament\Resources\Threads\Tables;
 
+use Exception;
 use App\Enums\Status;
+use App\Models\Thread;
 use Filament\Tables\Table;
+use Filament\Actions\Action;
 use Filament\Actions\ViewAction;
 use Filament\Actions\EditAction;
 use Filament\Support\Icons\Heroicon;
@@ -16,7 +19,7 @@ use Filament\Tables\Filters\SelectFilter;
 class ThreadsTable
 {
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public static function configure(Table $table): Table
     {
@@ -62,6 +65,18 @@ class ThreadsTable
                             ->relationship('category', 'name'),
             ])
             ->recordActions([
+                Action::make('publish')
+                      ->label('Publish')
+                      ->action(fn(Thread $thread) => $thread->markAsPublished())
+                      ->icon('heroicon-s-check-circle')
+                      ->color('success'),
+
+                Action::make('reject')
+                      ->label('Reject')
+                      ->action(fn(Thread $thread) => $thread->markAsRejected())
+                      ->icon('heroicon-s-x-circle')
+                      ->color('gray'),
+
                 ViewAction::make(),
                 EditAction::make(),
             ])
