@@ -24,18 +24,29 @@ class ThreadInfolist
 
                 TextEntry::make('views')
                          ->numeric(),
+
                 IconEntry::make('is_pinned')
                          ->boolean(),
+
                 IconEntry::make('is_locked')
                          ->boolean(),
+
+                TextEntry::make('body')
+                         ->markdown()
+                         ->columnSpanFull(),
+
                 TextEntry::make('user.name')
-                         ->numeric(),
+                         ->label('User'),
+
                 TextEntry::make('category.name')
-                         ->numeric(),
+                         ->label('Category'),
+
                 TextEntry::make('last_commented_at')
                          ->dateTime(),
+
                 TextEntry::make('created_at')
                          ->dateTime(),
+
                 TextEntry::make('updated_at')
                          ->dateTime(),
             ]);

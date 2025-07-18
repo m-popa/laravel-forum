@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('title');
             $table->string('slug')->nullable();
             $table->string('status')->default(Status::Published);
-            $table->text('content');
+            $table->text('body');
             $table->unsignedBigInteger('views')->default(0);
             $table->boolean('is_pinned')->default(false);
             $table->boolean('is_locked')->default(false);

@@ -1,4 +1,4 @@
-<div class="space-y-8 bg-white dark:bg-gray-900 mt-8" id="comments-wrapper">
+<div class="space-y-8  mt-8" id="comments-wrapper">
     @forelse ($comments as $comment)
         <livewire:comment.comment-card
             :comment="$comment"

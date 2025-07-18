@@ -2,17 +2,17 @@
 
 namespace App\Livewire\Thread;
 
-use App\Actions\CreateThreadAction;
-use App\Models\Category;
-use App\Models\Thread;
 use Exception;
-use Filament\Forms\Components\MarkdownEditor;
-use Filament\Forms\Components\TextInput;
-use Filament\Schemas\Concerns\InteractsWithSchemas;
-use Filament\Schemas\Contracts\HasSchemas;
-use Filament\Schemas\Schema;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Thread;
 use Livewire\Component;
+use App\Models\Category;
+use Filament\Schemas\Schema;
+use App\Actions\CreateThreadAction;
+use Illuminate\Support\Facades\Auth;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Contracts\HasSchemas;
+use Filament\Forms\Components\MarkdownEditor;
+use Filament\Schemas\Concerns\InteractsWithSchemas;
 
 class CreateThread extends Component implements HasSchemas
 {
@@ -22,7 +22,7 @@ class CreateThread extends Component implements HasSchemas
 
     public ?array $data = [];
 
-    public function mount(Category $category): void
+    public function mount(): void
     {
         $this->form->fill();
     }
@@ -35,11 +35,18 @@ class CreateThread extends Component implements HasSchemas
         return $schema
             ->components([
                 TextInput::make('title')
-                    ->label('Title')
-                    ->required(),
+                         ->label('Title')
+                         ->required(),
 
-                MarkdownEditor::make('content')
-                    ->label('Content'),
+                MarkdownEditor::make('body')
+                              ->label('Content')
+                              ->toolbarButtons([
+                                  ['bold', 'italic', 'strike', 'link'],
+                                  ['codeBlock', 'bulletList', 'orderedList'],
+                              ])
+                              ->required()
+                              ->minLength(5)
+                              ->maxLength(5000),
             ])
             ->model(Thread::class)
             ->statePath('data');
@@ -52,9 +59,9 @@ class CreateThread extends Component implements HasSchemas
         $thread = $action->execute(
             user: Auth::user(),
             category: $this->category,
-            data: $this->form->getState()
+            data: $this->form->getState(),
         );
 
-        $this->redirectRoute('categories.show', $thread->category);
+        $this->redirectRoute('threads.index', $thread->category);
     }
 }

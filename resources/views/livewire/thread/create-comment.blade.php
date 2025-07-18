@@ -3,17 +3,8 @@
         scrollAndFocus() {
             this.$nextTick(() => {
                 const el = document.getElementById('comment-editor');
-                if (el) {
-                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-                    const focusable = el.querySelector('[contenteditable], textarea, input');
-
-                    if (focusable) {
-                        focusable.focus();
-                    } else {
-                        el.focus();
-                    }
-                }
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
             });
         }
     }"
@@ -31,7 +22,10 @@
 
             <div class="flex items-center justify-between">
                 <div class="font-medium text-indigo-900 dark:text-indigo-100">
-                    Replying to <span class="font-semibold">{{ $this->parentPreview['name'] ?? 'Unknown' }}</span>
+                    Replying to
+                    <span class="font-semibold">
+                        {{ $this->parentPreview['name'] }}
+                    </span>
                 </div>
 
                 <button
@@ -43,21 +37,18 @@
                 </button>
             </div>
 
-            @if (!empty($this->parentPreview['preview']))
-                <div>
-                    {{ $this->parentPreview['preview'] }}
-                </div>
-            @endif
+            <div>
+                {{ $this->parentPreview['preview'] }}
+            </div>
         </div>
     @endif
 
 
     <form wire:submit.prevent="create">
-        <div class="flex w-full flex-col gap-1 text-neutral-800 dark:text-neutral-300" id="comment-editor">
+        <div class="flex w-full flex-col gap-1 ">
             {{ $this->form }}
 
-            <button type="submit"
-                    class="mt-4 self-start rounded-xl bg-primary border border-primary px-4 py-2 text-sm font-medium tracking-wide text-on-primary transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:opacity-100 disabled:opacity-75 disabled:cursor-not-allowed dark:bg-primary-dark dark:border-primary-dark dark:text-on-primary-dark dark:focus-visible:outline-primary-dark">
+            <button type="submit" id="comment-editor" class="btn btn-primary my-4">
                 {{ __('Post a comment') }}
             </button>
         </div>

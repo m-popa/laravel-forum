@@ -1,39 +1,23 @@
 <x-app-layout>
-    <section
-        class="relative bg-gradient-to-b from-violet-100 via-white to-gray-50 dark:from-gray-950 dark:via-gray-950 dark:to-gray-900">
-        <div
-            class="absolute inset-0 bg-gradient-to-r from-violet-300/10 to-indigo-400/10 dark:from-violet-800/10 dark:to-indigo-800/10 pointer-events-none"></div>
-        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-            <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-4">
-                {{ $category->name }}
-            </h1>
-
-            @if ($category->description)
-                <p class="text-lg text-gray-700 dark:text-gray-300 max-w-2xl mx-auto">
-                    {{ $category->description }}
-                </p>
-            @endif
-
-            <div class="mt-4">
-                @auth
-                    <a href="{{ route('threads.create', ['category' => $category]) }}"
-                       class="inline-flex items-center justify-center px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white text-sm font-medium rounded-xl transition w-full sm:w-auto">
-                        + New Thread
-                    </a>
-                @endauth
-            </div>
+    <x-page-header :title="$category->name" :subtitle="$category->description">
+        <div class="mt-4">
+            @auth
+                <a href="{{ route('threads.create', ['category' => $category]) }}"
+                   class="inline-flex items-center justify-center px-4 py-2">
+                    + New Thread
+                </a>
+            @endauth
         </div>
-    </section>
+    </x-page-header>
+
 
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         @forelse ($threads as $thread)
             <div
-                class="mb-6 mx-auto max-w-7xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-3xl p-6 shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col sm:flex-row sm:justify-between gap-6">
+                class="mb-6 mx-auto max-w-7xl border border-secondary p-6 rounded-xl">
                 <!-- Left Content: Title + Snippet -->
                 <div class="flex-1 flex flex-col justify-between">
-                    <a href="{{ $thread->url() }}"
-                       class="block text-2xl font-semibold text-gray-900 dark:text-white hover:text-violet-600 dark:hover:text-violet-400 line-clamp-2 transition-colors"
-                       tabindex="0">
+                    <a href="{{ $thread->url() }}" class="block text-2xl font-semibold line-clamp-2 lg:text-2xl">
                         {{ $thread->title }}
                     </a>
 
@@ -61,7 +45,7 @@
                         <!-- Stats -->
                         <div class="flex gap-6">
                             <div
-                                class="flex items-center gap-1 hover:text-violet-600 dark:hover:text-violet-400 cursor-pointer transition-colors"
+                                class="flex items-center gap-1 hover:text-primary dark:hover:text-primary cursor-pointer transition-colors"
                                 aria-label="Views"
                                 role="button"
                                 tabindex="0">
@@ -73,7 +57,7 @@
                             </div>
 
                             <div
-                                class="flex items-center gap-1 hover:text-violet-600 dark:hover:text-violet-400 cursor-pointer transition-colors"
+                                class="flex items-center gap-1 hover:text-primary dark:hover:text-primary cursor-pointer transition-colors"
                                 aria-label="Comments"
                                 role="button"
                                 tabindex="0">
@@ -90,7 +74,7 @@
 
         @empty
             <div
-                class="text-center py-16 bg-white dark:bg-gray-900 border border-dashed border-gray-300 dark:border-gray-700 rounded-2xl">
+                class="text-center py-16 bg-white dark:bg-surface-dark border border-dashed border-surface-dark dark:border-surface-alt rounded-lg">
                 <p class="text-gray-500 dark:text-gray-400 text-lg">
                     No threads in this category yet.
                 </p>

@@ -10,10 +10,10 @@
         </div>
 
         <article
-            class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 shadow-sm transition">
+            class="border border-secondary rounded-2xl p-8 shadow-sm">
 
             <div class="prose dark:prose-invert max-w-none text-gray-800 dark:text-gray-200">
-                {!! str($thread->content)->markdown()->sanitizeHtml() !!}
+                {!! str($thread->body)->markdown()->sanitizeHtml() !!}
             </div>
         </article>
 
@@ -23,11 +23,19 @@
             <livewire:thread.create-comment :thread-id="$thread->id"/>
         @else
             <p class="text-gray-500 dark:text-gray-400 mt-4">
-                <a href="{{ route('login') }}" class="text-primary">Log in</a> or
-                <a href="{{ route('register') }}" class="text-primary">register</a> to post a reply.
+                <a href="{{ route('login') }}" class="text-primary">
+                    {{ __('Log in') }}
+                </a>
+
+                {{ __('or') }}
+
+                <a href="{{ route('register') }}"
+                   class="text-primary">
+                    {{ __('Register') }}
+                </a>
+                {{ __('to leave a comment.') }}
             </p>
         @endauth
-
     </section>
 </x-app-layout>
 

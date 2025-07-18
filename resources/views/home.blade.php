@@ -1,27 +1,6 @@
 <x-app-layout>
-    <!-- Hero -->
-    <section
-        class="bg-linear-to-b from-surface-base via-transparent border-b border-gray-200 dark:border-gray-800">
-        <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-8">
-            <!-- Title -->
-            <div class="max-w-3xl text-center mx-auto">
-                <h1 class="block font-medium text-gray-200 text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
-                    {{ $settings->hero_title }}
-                </h1>
-            </div>
-            <!-- End Title -->
+    <x-page-header :title="$settings->hero_title" :subtitle="$settings->hero_subtitle"/>
 
-            <div class="max-w-3xl text-center mx-auto">
-                <p class="text-lg text-white/70">
-                    {{ $settings->hero_subtitle }}
-                </p>
-            </div>
-        </div>
-    </section>
-    <!-- End Hero -->
-
-
-    {{-- Categories Section --}}
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <h2 class="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12">
             {{ $settings->categories_section_title }}
@@ -29,22 +8,29 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             @forelse ($categories as $category)
-                <a href="{{ route('threads.index', $category) }}"
-                   class="group block bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 transition hover:shadow-xl hover:border-violet-500 dark:hover:border-violet-400">
-                    <div class="mb-4">
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-violet-700 dark:group-hover:text-violet-400 transition">
-                            {{ $category->name }}
-                        </h3>
-                        @if ($category->description)
-                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
-                                {{ Str::limit($category->description, 100) }}
+                <article
+                    class="group grid rounded-xl max-w-2xl grid-cols-1 md:grid-cols-8 overflow-hidden border border-secondary">
+                    <a href="{{ route('threads.index', $category) }}">
+                        <div class="flex flex-col justify-center p-6 col-span-8">
+                            <h3 class="text-balance text-xl font-bold text-on-surface-strong lg:text-2xl dark:text-on-surface-dark-strong"
+                                aria-describedby="articleDescription">
+                                {{ $category->name }}
+                            </h3>
+                            <p id="articleDescription" class="my-4 max-w-lg text-pretty text-sm">
+                                {{ $category->description }}
                             </p>
-                        @endif
-                    </div>
-                    <div class="mt-4 text-sm font-medium text-violet-600 dark:text-violet-400 group-hover:underline">
-                        View Threads →
-                    </div>
-                </a>
+                            <a href="{{ route('threads.index', $category) }}"
+                               class="w-fit font-medium text-primary dark:text-primary-dark">
+                                {{ __('View Threads') }}
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor"
+                                     fill="none" stroke-width="2.5" aria-hidden="true" class="inline size-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </a>
+                </article>
             @empty
                 <div
                     class="col-span-full text-center py-12 bg-white dark:bg-gray-900 rounded-2xl border border-dashed border-gray-300 dark:border-gray-700">

@@ -22,7 +22,7 @@ class Thread extends Model
         'title',
         'slug',
         'status',
-        'content',
+        'body',
         'views',
         'is_pinned',
         'is_locked',
@@ -110,7 +110,7 @@ class Thread extends Model
     protected function previewBody(): Attribute
     {
         return Attribute::make(
-            get: fn() => Str::limit($this->content)
+            get: fn() => Str::limit($this->body)
         )->shouldCache();
     }
 

@@ -1,48 +1,46 @@
-<div class="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-5 shadow-md max-w-full">
+<div class="border border-secondary rounded-xl p-5 max-w-full">
     <div class="flex flex-col gap-4">
         <div class="flex items-center gap-3">
             <x-user.avatar :user="$comment->user"/>
 
             <div class="min-w-0">
-                <h4 class="text-base font-semibold text-gray-900 dark:text-white truncate">
+                <h4 class="text-primary font-semibold truncate">
                     {{ $comment->user->name }}
                 </h4>
-                <span class="text-xs text-gray-500 dark:text-gray-400">
+                <span class="text-xs text-primary">
                     {{ $comment->created_at->diffForHumans() }}
                 </span>
             </div>
         </div>
 
-        <!-- Parent reply if any -->
         @if ($comment->parent)
             <div class="mt-2">
                 <p class="text-xs italic text-gray-500 dark:text-gray-400 mb-1">
                     {{ __('Replying to') }}
-                    <span class="font-semibold text-indigo-600 dark:text-indigo-400">
+                    <span class="font-semibold text-secondary">
                         {{ $comment->parent->user->name }}
                     </span>
                 </p>
 
                 <blockquote
-                    class="text-sm text-gray-700 dark:text-gray-300 bg-indigo-50 dark:bg-gray-800 rounded border-l-4 border-indigo-400 pl-3 pr-4 py-3 break-words">
+                    class="text-sm text-base-200 bg-secondary rounded border-l-8 border-accent pl-3 pr-4 py-3 break-words">
                     {{ $comment->parent->preview_body }}
                 </blockquote>
             </div>
         @endif
 
-        <p class="text-sm text-gray-800 dark:text-gray-300 prose dark:prose-invert">
-            {{ $this->commentInfolist }}
+        <p class="text-sm prose dark:prose-invert">
+            {!! str()->markdown($comment->body) !!}
         </p>
 
         @if(auth()->check() && auth()->user()->can('reply', $comment))
-            <div class="mt-4 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+            <div class="mt-4 flex items-center justify-between text-xs">
                 <livewire:comment.vote-button
                     :comment="$comment"
                     wire:key="vote-{{ $comment->id }}"
                 />
 
-                <button wire:click="replyToComment"
-                        class="font-medium text-indigo-600 dark:text-indigo-400 whitespace-nowrap hover:underline">
+                <button wire:click="replyToComment" class="font-medium text-primary whitespace-nowrap hover:underline">
                     {{ __('Reply') }}
                 </button>
             </div>

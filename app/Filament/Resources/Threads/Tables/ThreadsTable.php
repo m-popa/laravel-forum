@@ -43,8 +43,8 @@ class ThreadsTable
 
                 IconColumn::make('is_locked')
                           ->boolean(),
+
                 TextColumn::make('user.name')
-                          ->numeric()
                           ->sortable(),
 
                 TextColumn::make('created_at')
@@ -57,6 +57,7 @@ class ThreadsTable
                           ->sortable()
                           ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 SelectFilter::make('status')
                             ->options(Status::class),

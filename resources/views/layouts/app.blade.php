@@ -17,20 +17,22 @@
             display: none !important;
         }
     </style>
-
-    <!-- Scripts -->
+    
     @filamentStyles
     @filamentScripts
+    <!-- Scripts -->
     @vite(['resources/css/app.css',  'resources/js/app.js'])
 
-</head>
-<body class="min-h-screen flex flex-col font-sans antialiased bg-white dark:bg-gray-900">
 
-<header class="dark:bg-gray-900 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
+</head>
+<body class="min-h-screen bg-base flex flex-col font-sans antialiased">
+
+<header
+    class="border border-b border-secondary">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
         <a href="{{ url('/') }}"
-           class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white hover:text-violet-600 dark:hover:text-violet-400 transition">
-            Laravel Forum
+           class="text-2xl font-bold tracking-tight text-on-surface-strong dark:text-on-surface-dark-strong">
+            {{ config('app.name', 'Laravel') }}
         </a>
 
         <nav>
@@ -95,10 +97,10 @@
 
 @livewire('notifications')
 
-<footer class="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 py-8">
-    <div class="max-w-6xl mx-auto px-6 text-center text-sm text-gray-500 dark:text-gray-400">
+<footer class="bg-secondary border-t border-secondary py-8">
+    <div class="max-w-6xl mx-auto px-6 text-center text-sm">
         <p class="mb-2">
-            &copy; {{ date('Y') }} <span class="font-semibold text-violet-600 dark:text-violet-400">Laravel Forum</span>.
+            &copy; {{ date('Y') }} <span class="font-semibold">Laravel Forum</span>.
             All rights reserved.
         </p>
     </div>

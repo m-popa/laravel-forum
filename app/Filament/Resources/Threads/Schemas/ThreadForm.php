@@ -30,7 +30,7 @@ class ThreadForm
                       ->enum(Status::class)
                       ->required(),
 
-                MarkdownEditor::make('content')
+                MarkdownEditor::make('body')
                               ->columnSpanFull(),
 
                 TextInput::make('views')
