@@ -2,19 +2,19 @@
 
 namespace App\Filament\Resources\Threads\Tables;
 
-use Exception;
 use App\Enums\Status;
 use App\Models\Thread;
-use Filament\Tables\Table;
+use Exception;
 use Filament\Actions\Action;
-use Filament\Actions\ViewAction;
-use Filament\Actions\EditAction;
-use Filament\Support\Icons\Heroicon;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Tables\Columns\TextColumn;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Table;
 
 class ThreadsTable
 {
@@ -26,57 +26,57 @@ class ThreadsTable
         return $table
             ->columns([
                 TextColumn::make('title')
-                          ->searchable(),
+                    ->searchable(),
 
                 TextColumn::make('views')
-                          ->numeric()
-                          ->color('primary')
-                          ->icon(Heroicon::Eye)
-                          ->sortable(),
+                    ->numeric()
+                    ->color('primary')
+                    ->icon(Heroicon::Eye)
+                    ->sortable(),
 
                 TextColumn::make('status')
-                          ->badge()
-                          ->searchable(),
+                    ->badge()
+                    ->searchable(),
 
                 IconColumn::make('is_pinned')
-                          ->boolean(),
+                    ->boolean(),
 
                 IconColumn::make('is_locked')
-                          ->boolean(),
+                    ->boolean(),
 
                 TextColumn::make('user.name')
-                          ->sortable(),
+                    ->sortable(),
 
                 TextColumn::make('created_at')
-                          ->dateTime()
-                          ->sortable()
-                          ->toggleable(isToggledHiddenByDefault: true),
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('updated_at')
-                          ->dateTime()
-                          ->sortable()
-                          ->toggleable(isToggledHiddenByDefault: true),
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
                 SelectFilter::make('status')
-                            ->options(Status::class),
+                    ->options(Status::class),
 
                 SelectFilter::make('category')
-                            ->relationship('category', 'name'),
+                    ->relationship('category', 'name'),
             ])
             ->recordActions([
                 Action::make('publish')
-                      ->label('Publish')
-                      ->action(fn(Thread $thread) => $thread->markAsPublished())
-                      ->icon('heroicon-s-check-circle')
-                      ->color('success'),
+                    ->label('Publish')
+                    ->action(fn (Thread $thread) => $thread->markAsPublished())
+                    ->icon('heroicon-s-check-circle')
+                    ->color('success'),
 
                 Action::make('reject')
-                      ->label('Reject')
-                      ->action(fn(Thread $thread) => $thread->markAsRejected())
-                      ->icon('heroicon-s-x-circle')
-                      ->color('gray'),
+                    ->label('Reject')
+                    ->action(fn (Thread $thread) => $thread->markAsRejected())
+                    ->icon('heroicon-s-x-circle')
+                    ->color('gray'),
 
                 ViewAction::make(),
                 EditAction::make(),

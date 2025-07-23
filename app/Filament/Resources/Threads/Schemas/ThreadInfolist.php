@@ -3,9 +3,9 @@
 namespace App\Filament\Resources\Threads\Schemas;
 
 use Exception;
-use Filament\Schemas\Schema;
-use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Components\IconEntry;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Schema;
 
 class ThreadInfolist
 {
@@ -23,32 +23,32 @@ class ThreadInfolist
                 TextEntry::make('status'),
 
                 TextEntry::make('views')
-                         ->numeric(),
+                    ->numeric(),
 
                 IconEntry::make('is_pinned')
-                         ->boolean(),
+                    ->boolean(),
 
                 IconEntry::make('is_locked')
-                         ->boolean(),
+                    ->boolean(),
 
                 TextEntry::make('body')
-                         ->markdown()
-                         ->columnSpanFull(),
+                    ->markdown()
+                    ->columnSpanFull(),
 
                 TextEntry::make('user.name')
-                         ->label('User'),
+                    ->label('User'),
 
                 TextEntry::make('category.name')
-                         ->label('Category'),
+                    ->label('Category'),
 
                 TextEntry::make('last_commented_at')
-                         ->dateTime(),
+                    ->dateTime(),
 
                 TextEntry::make('created_at')
-                         ->dateTime(),
+                    ->dateTime(),
 
                 TextEntry::make('updated_at')
-                         ->dateTime(),
+                    ->dateTime(),
             ]);
     }
 }

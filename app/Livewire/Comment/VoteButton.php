@@ -2,10 +2,10 @@
 
 namespace App\Livewire\Comment;
 
-use App\Models\Comment;
-use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
 use App\Actions\ToggleCommentVoteAction;
+use App\Models\Comment;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Component;
 
 class VoteButton extends Component
 {
@@ -19,7 +19,7 @@ class VoteButton extends Component
 
     public function mount(): void
     {
-        $vote           = $this->comment->votes->firstWhere('user_id', Auth::id());
+        $vote = $this->comment->votes->firstWhere('user_id', Auth::id());
         $this->userVote = $vote?->isLiked();
 
         $this->updateVotesCount();
@@ -27,7 +27,7 @@ class VoteButton extends Component
 
     protected function updateVotesCount(): void
     {
-        $likes    = $this->comment->votes()->where('is_liked', true)->count();
+        $likes = $this->comment->votes()->where('is_liked', true)->count();
         $dislikes = $this->comment->votes()->where('is_liked', false)->count();
 
         $this->votesCount = $likes - $dislikes;

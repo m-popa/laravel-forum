@@ -2,13 +2,13 @@
 
 namespace App\Livewire\Comment;
 
-use Exception;
-use Livewire\Component;
 use App\Models\Comment;
-use Filament\Schemas\Schema;
-use Filament\Schemas\Contracts\HasSchemas;
+use Exception;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
+use Filament\Schemas\Contracts\HasSchemas;
+use Filament\Schemas\Schema;
+use Livewire\Component;
 
 class CommentCard extends Component implements HasSchemas
 {
@@ -25,8 +25,8 @@ class CommentCard extends Component implements HasSchemas
             ->record($this->comment)
             ->components([
                 TextEntry::make('body')
-                         ->markdown()
-                         ->hiddenLabel(),
+                    ->markdown()
+                    ->hiddenLabel(),
             ]);
     }
 

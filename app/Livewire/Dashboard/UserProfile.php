@@ -2,16 +2,16 @@
 
 namespace App\Livewire\Dashboard;
 
-use Exception;
 use App\Models\User;
-use Livewire\Component;
-use Filament\Schemas\Schema;
-use Illuminate\Support\Facades\Auth;
+use Exception;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
-use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Schemas\Contracts\HasSchemas;
+use Filament\Schemas\Schema;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Component;
 
 class UserProfile extends Component implements HasSchemas
 {
@@ -38,15 +38,15 @@ class UserProfile extends Component implements HasSchemas
         return $schema
             ->components([
                 SpatieMediaLibraryFileUpload::make('avatar')
-                                            ->label('Avatar')
-                                            ->model($this->user)
-                                            ->collection('avatars')
-                                            ->imageEditor()
-                                            ->avatar(),
+                    ->label('Avatar')
+                    ->model($this->user)
+                    ->collection('avatars')
+                    ->imageEditor()
+                    ->avatar(),
 
                 TextInput::make('name')
-                         ->label('Name')
-                         ->required(),
+                    ->label('Name')
+                    ->required(),
 
             ])
             ->model(User::class)
@@ -62,8 +62,8 @@ class UserProfile extends Component implements HasSchemas
         $this->form->model()->saveRelationships();
 
         Notification::make()
-                    ->title('Profile updated successfully')
-                    ->success()
-                    ->send();
+            ->title('Profile updated successfully')
+            ->success()
+            ->send();
     }
 }

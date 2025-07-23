@@ -3,13 +3,13 @@
 namespace App\Models;
 
 use App\Enums\Status;
-use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Traits\InteractsWithStatus;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class Comment extends Model
 {
@@ -64,7 +64,7 @@ class Comment extends Model
     protected function previewBody(): Attribute
     {
         return Attribute::make(
-            get: fn() => Str::limit($this->body)
+            get: fn () => Str::limit($this->body)
         )->shouldCache();
     }
 

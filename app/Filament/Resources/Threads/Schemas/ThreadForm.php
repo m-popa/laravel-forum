@@ -2,14 +2,14 @@
 
 namespace App\Filament\Resources\Threads\Schemas;
 
-use Exception;
 use App\Enums\Status;
-use Filament\Schemas\Schema;
-use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
+use Exception;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Schema;
 
 class ThreadForm
 {
@@ -21,39 +21,39 @@ class ThreadForm
         return $schema
             ->components([
                 TextInput::make('title')
-                         ->required(),
+                    ->required(),
 
                 TextInput::make('slug'),
 
                 Select::make('status')
-                      ->options(Status::class)
-                      ->enum(Status::class)
-                      ->required(),
+                    ->options(Status::class)
+                    ->enum(Status::class)
+                    ->required(),
 
                 MarkdownEditor::make('body')
-                              ->columnSpanFull(),
+                    ->columnSpanFull(),
 
                 TextInput::make('views')
-                         ->required()
-                         ->numeric()
-                         ->default(0)
-                         ->columnSpanFull(),
+                    ->required()
+                    ->numeric()
+                    ->default(0)
+                    ->columnSpanFull(),
 
                 Toggle::make('is_pinned')
-                      ->inlineLabel()
-                      ->required(),
+                    ->inlineLabel()
+                    ->required(),
 
                 Toggle::make('is_locked')
-                      ->inlineLabel()
-                      ->required(),
+                    ->inlineLabel()
+                    ->required(),
 
                 Select::make('user_id')
-                      ->relationship('user', 'name')
-                      ->required(),
+                    ->relationship('user', 'name')
+                    ->required(),
 
                 Select::make('category_id')
-                      ->relationship('category', 'name')
-                      ->required(),
+                    ->relationship('category', 'name')
+                    ->required(),
 
                 DateTimePicker::make('last_commented_at'),
             ]);

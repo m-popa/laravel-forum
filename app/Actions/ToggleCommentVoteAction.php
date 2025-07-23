@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
-use App\Models\User;
 use App\Models\Comment;
+use App\Models\User;
 
 final class ToggleCommentVoteAction
 {
@@ -13,11 +13,12 @@ final class ToggleCommentVoteAction
     {
         $vote = $comment->votes->firstWhere('user_id', $user->id);
 
-        if (!$vote) {
-            $comment->vote($user, $isLiked);
-            return $isLiked;
+        if ($vote) {
+            return $vote->toggle($isLiked);
         }
 
-        return $vote->toggle($isLiked);
+        $comment->vote($user, $isLiked);
+
+        return $isLiked;
     }
 }

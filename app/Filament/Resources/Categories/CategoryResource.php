@@ -2,19 +2,19 @@
 
 namespace App\Filament\Resources\Categories;
 
-use BackedEnum;
-use App\Models\Category;
-use Filament\Tables\Table;
-use Filament\Schemas\Schema;
-use Filament\Resources\Resource;
-use Filament\Support\Icons\Heroicon;
-use App\Filament\Resources\Categories\Pages\EditCategory;
-use App\Filament\Resources\Categories\Pages\ViewCategory;
 use App\Filament\Resources\Categories\Pages\CreateCategory;
+use App\Filament\Resources\Categories\Pages\EditCategory;
 use App\Filament\Resources\Categories\Pages\ListCategories;
+use App\Filament\Resources\Categories\Pages\ViewCategory;
 use App\Filament\Resources\Categories\Schemas\CategoryForm;
-use App\Filament\Resources\Categories\Tables\CategoriesTable;
 use App\Filament\Resources\Categories\Schemas\CategoryInfolist;
+use App\Filament\Resources\Categories\Tables\CategoriesTable;
+use App\Models\Category;
+use BackedEnum;
+use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Table;
 
 class CategoryResource extends Resource
 {

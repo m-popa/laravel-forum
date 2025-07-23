@@ -2,17 +2,17 @@
 
 namespace App\Livewire\Thread;
 
-use Exception;
-use App\Models\Thread;
-use Livewire\Component;
-use App\Models\Category;
-use Filament\Schemas\Schema;
 use App\Actions\CreateThreadAction;
-use Illuminate\Support\Facades\Auth;
-use Filament\Forms\Components\TextInput;
-use Filament\Schemas\Contracts\HasSchemas;
+use App\Models\Category;
+use App\Models\Thread;
+use Exception;
 use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
+use Filament\Schemas\Contracts\HasSchemas;
+use Filament\Schemas\Schema;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Component;
 
 class CreateThread extends Component implements HasSchemas
 {
@@ -35,18 +35,18 @@ class CreateThread extends Component implements HasSchemas
         return $schema
             ->components([
                 TextInput::make('title')
-                         ->label('Title')
-                         ->required(),
+                    ->label('Title')
+                    ->required(),
 
                 MarkdownEditor::make('body')
-                              ->label('Content')
-                              ->toolbarButtons([
-                                  ['bold', 'italic', 'strike', 'link'],
-                                  ['codeBlock', 'bulletList', 'orderedList'],
-                              ])
-                              ->required()
-                              ->minLength(5)
-                              ->maxLength(5000),
+                    ->label('Content')
+                    ->toolbarButtons([
+                        ['bold', 'italic', 'strike', 'link'],
+                        ['codeBlock', 'bulletList', 'orderedList'],
+                    ])
+                    ->required()
+                    ->minLength(5)
+                    ->maxLength(5000),
             ])
             ->model(Thread::class)
             ->statePath('data');

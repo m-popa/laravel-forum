@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ThreadController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ThreadController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
 Route::get('/dashboard', DashboardController::class)->name('dashboard');
@@ -12,7 +12,7 @@ Route::get('/dashboard', DashboardController::class)->name('dashboard');
 Route::get('/threads/{category:slug}', [ThreadController::class, 'index'])->name('threads.index');
 
 Route::get('/categories/{category:slug}/threads/{thread:slug}', [ThreadController::class, 'show'])
-     ->name('threads.show');
+    ->name('threads.show');
 
 Route::get('/threads/create/{category:slug}', [ThreadController::class, 'create'])->name('threads.create');
 

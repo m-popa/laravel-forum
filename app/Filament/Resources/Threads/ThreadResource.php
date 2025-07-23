@@ -2,19 +2,19 @@
 
 namespace App\Filament\Resources\Threads;
 
-use BackedEnum;
-use App\Models\Thread;
-use Filament\Tables\Table;
-use Filament\Schemas\Schema;
-use Filament\Resources\Resource;
-use Filament\Support\Icons\Heroicon;
-use App\Filament\Resources\Threads\Pages\EditThread;
-use App\Filament\Resources\Threads\Pages\ViewThread;
-use App\Filament\Resources\Threads\Pages\ListThreads;
 use App\Filament\Resources\Threads\Pages\CreateThread;
+use App\Filament\Resources\Threads\Pages\EditThread;
+use App\Filament\Resources\Threads\Pages\ListThreads;
+use App\Filament\Resources\Threads\Pages\ViewThread;
 use App\Filament\Resources\Threads\Schemas\ThreadForm;
-use App\Filament\Resources\Threads\Tables\ThreadsTable;
 use App\Filament\Resources\Threads\Schemas\ThreadInfolist;
+use App\Filament\Resources\Threads\Tables\ThreadsTable;
+use App\Models\Thread;
+use BackedEnum;
+use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Table;
 
 class ThreadResource extends Resource
 {

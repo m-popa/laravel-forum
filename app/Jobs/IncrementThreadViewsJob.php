@@ -4,10 +4,10 @@ namespace App\Jobs;
 
 use App\Models\Thread;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class IncrementThreadViewsJob implements ShouldQueue
 {
@@ -15,8 +15,7 @@ class IncrementThreadViewsJob implements ShouldQueue
 
     public function __construct(
         public readonly Thread $thread,
-    ) {
-    }
+    ) {}
 
     public function handle(): void
     {

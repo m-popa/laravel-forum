@@ -2,19 +2,19 @@
 
 namespace App\Livewire\Thread;
 
-use Exception;
-use App\Models\Comment;
-use Livewire\Component;
-use Livewire\Attributes\On;
-use Filament\Schemas\Schema;
-use Livewire\Attributes\Locked;
-use Livewire\Attributes\Validate;
-use Livewire\Attributes\Computed;
-use Illuminate\Support\Facades\Auth;
 use App\Actions\CreateCommentAction;
-use Filament\Schemas\Contracts\HasSchemas;
+use App\Models\Comment;
+use Exception;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
+use Filament\Schemas\Contracts\HasSchemas;
+use Filament\Schemas\Schema;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Locked;
+use Livewire\Attributes\On;
+use Livewire\Attributes\Validate;
+use Livewire\Component;
 
 class CreateComment extends Component implements HasSchemas
 {
@@ -36,13 +36,13 @@ class CreateComment extends Component implements HasSchemas
         return $schema
             ->components([
                 MarkdownEditor::make('body')
-                              ->hiddenLabel()
-                              ->toolbarButtons([
-                                  ['bold', 'italic', 'strike', 'link'],
-                                  ['codeBlock', 'bulletList', 'orderedList'],
-                              ])
-                              ->minLength(3)
-                              ->required(),
+                    ->hiddenLabel()
+                    ->toolbarButtons([
+                        ['bold', 'italic', 'strike', 'link'],
+                        ['codeBlock', 'bulletList', 'orderedList'],
+                    ])
+                    ->minLength(3)
+                    ->required(),
             ]);
     }
 
@@ -51,7 +51,7 @@ class CreateComment extends Component implements HasSchemas
     {
         $comment = Comment::find($this->parentId);
 
-        if (!$comment) {
+        if (! $comment) {
             return null;
         }
 

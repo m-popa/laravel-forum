@@ -4,20 +4,20 @@ namespace App\Models;
 
 use App\Enums\Status;
 use App\Interfaces\HasUrl;
-use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Traits\InteractsWithStatus;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class Thread extends Model implements HasUrl
 {
     use HasFactory;
-    use Sluggable;
     use InteractsWithStatus;
+    use Sluggable;
 
     protected $fillable = [
         'title',
@@ -59,30 +59,34 @@ class Thread extends Model implements HasUrl
     public function lock(): static
     {
         $this->update(['locked_at' => now()]);
+
         return $this;
     }
 
     public function unlock(): static
     {
         $this->update(['locked_at' => null]);
+
         return $this;
     }
 
     public function pin(): static
     {
         $this->update(['pinned_at' => now()]);
+
         return $this;
     }
 
     public function unpin(): static
     {
         $this->update(['pinned_at' => null]);
+
         return $this;
     }
 
     public function isNotPinned(): bool
     {
-        return !$this->isPinned();
+        return ! $this->isPinned();
     }
 
     public function isPinned(): bool
@@ -92,7 +96,7 @@ class Thread extends Model implements HasUrl
 
     public function isNotLocked(): bool
     {
-        return !$this->isLocked();
+        return ! $this->isLocked();
     }
 
     public function isLocked(): bool
@@ -115,7 +119,7 @@ class Thread extends Model implements HasUrl
     protected function previewBody(): Attribute
     {
         return Attribute::make(
-            get: fn() => Str::limit($this->body)
+            get: fn () => Str::limit($this->body)
         )->shouldCache();
     }
 

@@ -29,6 +29,7 @@ trait InteractsWithStatus
     protected function setStatus(Status $status): static
     {
         $this->update(['status' => $status]);
+
         return $this;
     }
 

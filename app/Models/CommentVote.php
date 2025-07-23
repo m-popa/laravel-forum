@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CommentVote extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'is_liked',
         'comment_id',
@@ -32,10 +35,12 @@ class CommentVote extends Model
     {
         if ($this->isLiked() === $isLiked) {
             $this->unvote();
+
             return null;
         }
 
         $this->update(['is_liked' => $isLiked]);
+
         return $isLiked;
     }
 
@@ -47,6 +52,7 @@ class CommentVote extends Model
     public function unvote(): static
     {
         $this->delete();
+
         return $this;
     }
 
