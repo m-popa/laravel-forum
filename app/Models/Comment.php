@@ -44,6 +44,14 @@ class Comment extends Model
         return $this->belongsTo(__CLASS__, 'parent_id');
     }
 
+    public function vote(User $user, bool $isLiked): CommentVote
+    {
+        return $this->votes()->create([
+            'user_id' => $user->id,
+            'is_liked' => $isLiked,
+        ]);
+    }
+
     public function votes(): HasMany
     {
         return $this->hasMany(CommentVote::class);

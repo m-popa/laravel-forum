@@ -23,14 +23,31 @@ class CommentVote extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function isDisliked(): bool
+    {
+        return $this->is_liked === false;
+    }
+
+    public function toggle(bool $isLiked): ?bool
+    {
+        if ($this->isLiked() === $isLiked) {
+            $this->unvote();
+            return null;
+        }
+
+        $this->update(['is_liked' => $isLiked]);
+        return $isLiked;
+    }
+
     public function isLiked(): bool
     {
         return $this->is_liked === true;
     }
 
-    public function isDisliked(): bool
+    public function unvote(): static
     {
-        return $this->is_liked === false;
+        $this->delete();
+        return $this;
     }
 
     protected function casts(): array
