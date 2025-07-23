@@ -67,7 +67,9 @@ class User extends Authenticatable implements HasMedia
     {
         return Str::of($this->name)
                   ->explode(' ')
-                  ->map(fn(string $name) => Str::of($name)->substr(0, 1))
+                  ->filter()
+                  ->map(fn(string $name) => Str::of($name)->substr(0, 1)->upper())
+                  ->take(2)
                   ->implode('');
     }
 

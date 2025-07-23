@@ -22,7 +22,7 @@
                     </a>
 
                     <p class="mt-3 text-gray-700 dark:text-gray-300 text-sm leading-relaxed line-clamp-3">
-                        {{ $thread->preview_body }}
+                        {!! str()->markdown($thread->preview_body) !!}
                     </p>
                 </div>
 
@@ -33,42 +33,37 @@
                         {{ $thread->created_at->diffForHumans() }}
                     </span>
 
-                    <div class="flex items-center gap-4">
-                        <!-- Author -->
-                        <div class="flex items-center gap-3">
-                            <x-user.avatar :user="$thread->user"/>
-                            <span class="font-medium text-gray-800 dark:text-gray-200">
-                                {{ $thread->user->name }}
-                            </span>
-                        </div>
-
-                        <!-- Stats -->
+                    <div class="flex justify-between items-center w-full">
+                        <!-- Stats (left) -->
                         <div class="flex gap-6">
                             <div
-                                class="flex items-center gap-1 hover:text-primary dark:hover:text-primary cursor-pointer transition-colors"
+                                class="flex items-center gap-1 hover:text-primary cursor-pointer transition-colors"
                                 aria-label="Views"
                                 role="button"
                                 tabindex="0">
-
                                 <x-heroicon-o-eye class="w-5 h-5"/>
-                                <span>
-                                    {{ $thread->views }}
-                                </span>
+                                <span>{{ $thread->views }}</span>
                             </div>
 
                             <div
-                                class="flex items-center gap-1 hover:text-primary dark:hover:text-primary cursor-pointer transition-colors"
+                                class="flex items-center gap-1 hover:text-primary cursor-pointer transition-colors"
                                 aria-label="Comments"
                                 role="button"
                                 tabindex="0">
-
                                 <x-heroicon-o-chat-bubble-left class="w-5 h-5"/>
-                                <span>
-                                    {{ $thread->comments->count() }}
-                                </span>
+                                <span>{{ $thread->comments->count() }}</span>
                             </div>
                         </div>
+
+                        <!-- Author (right) -->
+                        <div class="flex items-center gap-2">
+                            <span class="font-medium text-primary mr-2 truncate ml-4">
+                                {{ $thread->user->name }}
+                            </span>
+                            <x-user.avatar :user="$thread->user"/>
+                        </div>
                     </div>
+
                 </div>
             </div>
 

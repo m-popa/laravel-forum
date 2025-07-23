@@ -17,14 +17,14 @@
             <div class="mt-2">
                 <p class="text-xs italic text-gray-500 dark:text-gray-400 mb-1">
                     {{ __('Replying to') }}
-                    <span class="font-semibold text-secondary">
+                    <span class="font-semibold text-primary">
                         {{ $comment->parent->user->name }}
                     </span>
                 </p>
 
                 <blockquote
                     class="text-sm text-base-200 bg-secondary rounded border-l-8 border-accent pl-3 pr-4 py-3 break-words">
-                    {{ $comment->parent->preview_body }}
+                    {!! str()->markdown($comment->parent->preview_body) !!}
                 </blockquote>
             </div>
         @endif

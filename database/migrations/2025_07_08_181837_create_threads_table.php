@@ -17,11 +17,12 @@ return new class extends Migration {
             $table->string('status')->default(Status::Published);
             $table->text('body');
             $table->unsignedBigInteger('views')->default(0);
-            $table->boolean('is_pinned')->default(false);
-            $table->boolean('is_locked')->default(false);
 
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Category::class)->constrained()->cascadeOnDelete();
+
+            $table->timestamp('pinned_at')->nullable();
+            $table->timestamp('locked_at')->nullable();
             $table->timestamp('last_commented_at')->nullable();
             $table->timestamps();
         });

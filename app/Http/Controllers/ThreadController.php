@@ -8,7 +8,6 @@ use App\Jobs\IncrementThreadViewsJob;
 
 class ThreadController extends Controller
 {
-
     public function index(Category $category)
     {
         $threads = $category->threads()

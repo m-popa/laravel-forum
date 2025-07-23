@@ -8,17 +8,17 @@ trait InteractsWithStatus
 {
     public function scopePublished($query)
     {
-        return $query->where('status', Status::Published->value);
+        return $query->where('status', Status::Published);
     }
 
     public function scopePending($query)
     {
-        return $query->where('status', Status::Pending->value);
+        return $query->where('status', Status::Pending);
     }
 
     public function scopeRejected($query)
     {
-        return $query->where('status', Status::Rejected->value);
+        return $query->where('status', Status::Rejected);
     }
 
     public function markAsPublished(): static

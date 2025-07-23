@@ -9,9 +9,7 @@
             </p>
         </div>
 
-        <article
-            class="border border-secondary rounded-2xl p-8 shadow-sm">
-
+        <article class="border border-secondary rounded-2xl p-8 shadow-sm">
             <div class="prose dark:prose-invert max-w-none text-gray-800 dark:text-gray-200">
                 {!! str($thread->body)->markdown()->sanitizeHtml() !!}
             </div>

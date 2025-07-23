@@ -36,11 +36,12 @@ class CreateComment extends Component implements HasSchemas
         return $schema
             ->components([
                 MarkdownEditor::make('body')
-                              ->label('Content')
+                              ->hiddenLabel()
                               ->toolbarButtons([
                                   ['bold', 'italic', 'strike', 'link'],
                                   ['codeBlock', 'bulletList', 'orderedList'],
                               ])
+                              ->minLength(3)
                               ->required(),
             ]);
     }
@@ -56,7 +57,7 @@ class CreateComment extends Component implements HasSchemas
 
         return [
             'name' => $comment->user->name,
-            'preview' => str($comment->body)->limit(120),
+            'preview' => $comment->body,
         ];
     }
 
@@ -73,7 +74,7 @@ class CreateComment extends Component implements HasSchemas
         $action->execute(Auth::user(), [
             'thread_id' => $this->threadId,
             'parent_id' => $this->parentId,
-            'body' => $this->body,
+            'body' => $this->form->getState()['body'],
         ]);
 
         $this->reset('body', 'parentId');

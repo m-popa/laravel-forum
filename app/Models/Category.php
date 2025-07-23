@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use App\Observers\CategoryObserver;
-use Cviebrock\EloquentSluggable\Sluggable;
-use Illuminate\Database\Eloquent\Attributes\ObservedBy;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 
 #[ObservedBy(CategoryObserver::class)]
 class Category extends Model
@@ -16,13 +17,19 @@ class Category extends Model
     use HasFactory;
     use Sluggable;
 
-    protected $guarded = ['id'];
+    protected $fillable = ['name', 'slug', 'description'];
 
-    public static function cachedCategories()
+    /**
+     * @return Collection
+     */
+    public static function cachedCategories(): Collection
     {
-        return Cache::rememberForever('categories', static fn () => Category::get());
+        return Cache::rememberForever('categories', static fn() => Category::get());
     }
 
+    /**
+     * @return array[]
+     */
     public function sluggable(): array
     {
         return [
@@ -32,6 +39,9 @@ class Category extends Model
         ];
     }
 
+    /**
+     * @return HasMany
+     */
     public function threads(): HasMany
     {
         return $this->hasMany(Thread::class);

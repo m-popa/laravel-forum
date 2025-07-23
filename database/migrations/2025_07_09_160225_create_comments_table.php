@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->text('body');
             $table->string('status')->default(Status::Published);
+
             $table->foreignIdFor(Thread::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->foreignId('parent_id')->nullable()->constrained('comments')->cascadeOnDelete();

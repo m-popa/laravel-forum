@@ -17,7 +17,7 @@
             display: none !important;
         }
     </style>
-    
+
     @filamentStyles
     @filamentScripts
     <!-- Scripts -->
@@ -27,8 +27,7 @@
 </head>
 <body class="min-h-screen bg-base flex flex-col font-sans antialiased">
 
-<header
-    class="border border-b border-secondary">
+<header>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
         <a href="{{ url('/') }}"
            class="text-2xl font-bold tracking-tight text-on-surface-strong dark:text-on-surface-dark-strong">

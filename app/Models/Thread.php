@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\Status;
+use App\Interfaces\HasUrl;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Traits\InteractsWithStatus;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Thread extends Model
+class Thread extends Model implements HasUrl
 {
     use HasFactory;
     use Sluggable;
@@ -24,11 +25,11 @@ class Thread extends Model
         'status',
         'body',
         'views',
-        'is_pinned',
-        'is_locked',
-        'last_commented_at',
         'user_id',
         'category_id',
+        'pinned_at',
+        'locked_at',
+        'last_commented_at',
     ];
 
     public function user(): BelongsTo
@@ -55,32 +56,28 @@ class Thread extends Model
         ];
     }
 
-    public function url(): string
+    public function lock(): static
     {
-        return route('threads.show', [
-            'category' => $this->category->slug,
-            'thread' => $this->slug,
-        ]);
+        $this->update(['locked_at' => now()]);
+        return $this;
     }
 
-    public function lock(): void
+    public function unlock(): static
     {
-        $this->update(['is_locked' => true]);
+        $this->update(['locked_at' => null]);
+        return $this;
     }
 
-    public function unlock(): void
+    public function pin(): static
     {
-        $this->update(['is_locked' => false]);
+        $this->update(['pinned_at' => now()]);
+        return $this;
     }
 
-    public function pin(): void
+    public function unpin(): static
     {
-        $this->update(['is_pinned' => true]);
-    }
-
-    public function unpin(): void
-    {
-        $this->update(['is_pinned' => false]);
+        $this->update(['pinned_at' => null]);
+        return $this;
     }
 
     public function isNotPinned(): bool
@@ -90,7 +87,7 @@ class Thread extends Model
 
     public function isPinned(): bool
     {
-        return $this->is_pinned;
+        return $this->pinned_at !== null;
     }
 
     public function isNotLocked(): bool
@@ -100,7 +97,15 @@ class Thread extends Model
 
     public function isLocked(): bool
     {
-        return $this->is_locked;
+        return $this->locked_at !== null;
+    }
+
+    public function url(): string
+    {
+        return route('threads.show', [
+            'category' => $this->category->slug,
+            'thread' => $this->slug,
+        ]);
     }
 
     /**
@@ -119,9 +124,9 @@ class Thread extends Model
         return [
             'status' => Status::class,
             'views' => 'integer',
-            'is_pinned' => 'boolean',
-            'is_locked' => 'boolean',
-            'last_commented_at' => 'timestamp',
+            'pinned_at' => 'datetime',
+            'locked_at' => 'datetime',
+            'last_commented_at' => 'datetime',
         ];
     }
 }
