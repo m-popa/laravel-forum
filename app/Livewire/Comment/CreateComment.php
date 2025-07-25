@@ -10,7 +10,6 @@ use Livewire\Attributes\On;
 use Filament\Schemas\Schema;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\Computed;
-use Livewire\Attributes\Validate;
 use App\Actions\CreateCommentAction;
 use Illuminate\Support\Facades\Auth;
 use Filament\Schemas\Contracts\HasSchemas;
@@ -26,8 +25,12 @@ class CreateComment extends Component implements HasSchemas
 
     public ?int $parentId = null;
 
-    #[Validate('required|string|min:3')]
-    public string $body = '';
+    public ?array $data = [];
+
+    public function mount(): void
+    {
+        $this->form->fill();
+    }
 
     /**
      * @throws Exception
@@ -44,8 +47,10 @@ class CreateComment extends Component implements HasSchemas
                               ])
                               ->minLength(3)
                               ->required(),
-            ]);
+            ])->statePath('data')
+            ->model(Comment::class);
     }
+
 
     #[Computed]
     public function parentPreview(): ?array
@@ -80,9 +85,9 @@ class CreateComment extends Component implements HasSchemas
             'parent_id' => $this->parentId,
         ]);
 
-        $action->execute(Auth::user(), $commentData);
+        $action->execute(user: Auth::user(), data: $commentData);
 
-        $this->reset('body', 'parentId');
+        $this->form->fill();
 
         $this->dispatch('replyCreated');
     }
