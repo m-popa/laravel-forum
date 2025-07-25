@@ -2,7 +2,7 @@
     x-data="{
         scrollAndFocus() {
             this.$nextTick(() => {
-                const el = document.getElementById('comment-editor');
+                const el = document.getElementById('comment-button');
 
                 el.scrollIntoView({ behavior: 'smooth', block: 'center' });
             });
@@ -10,7 +10,6 @@
     }"
     @reply-to-comment.window="scrollAndFocus()"
 >
-
 
     <h2 class="text-2xl font-bold text-gray-900 dark:text-white my-6">
         {{ __('Post a comment') }}
@@ -22,7 +21,7 @@
 
             <div class="flex items-center justify-between">
                 <div class="font-medium text-indigo-900 dark:text-indigo-100">
-                    Replying to
+                    {{ __('Replying to') }}
                     <span class="font-semibold">
                         {{ $this->parentPreview['name'] }}
                     </span>
@@ -44,13 +43,15 @@
     @endif
 
 
-    <form wire:submit.prevent="create">
-        <div class="flex w-full flex-col gap-1 ">
+    <form wire:submit="create">
+        <div class="flex w-full flex-col gap-1">
             {{ $this->form }}
 
-            <button type="submit" id="comment-editor" class="btn btn-primary my-4">
+            <x-primary-button type="submit" class="mt-4 text-center justify-center" id="comment-button">
                 {{ __('Post a comment') }}
-            </button>
+            </x-primary-button>
         </div>
     </form>
+
+    <x-filament-actions::modals/>
 </div>
