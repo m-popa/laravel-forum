@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\Status;
 use Illuminate\Support\Str;
+use App\Observers\CommentObserver;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Concerns\InteractsWithStatus;
@@ -11,7 +12,9 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 
+#[ObservedBy([CommentObserver::class])]
 class Comment extends Model
 {
     use HasFactory;

@@ -11,7 +11,7 @@ class ThreadController extends Controller
     {
         $threads = $category->threads()
                             ->with(['user', 'user.media'])
-                            ->latest()
+                            ->orderBy('last_commented_at', 'desc')
                             ->paginate(10);
 
         return view('threads.index', [
