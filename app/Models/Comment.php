@@ -57,6 +57,7 @@ class Comment extends Model
         return $this->hasMany(CommentVote::class);
     }
 
+
     /**
      * @noinspection PhpUnused
      * Used via Eloquent attribute: $comment->preview_body
@@ -65,6 +66,33 @@ class Comment extends Model
     {
         return Attribute::make(
             get: fn() => Str::limit($this->body)
+        )->shouldCache();
+    }
+
+    /**
+     * @noinspection PhpUnused
+     * Used via Eloquent attribute: $comment->user_vote
+     */
+    protected function userVote(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->votes
+                ->firstWhere('user_id', auth()->id())?->is_liked ?? null
+        )->shouldCache();
+    }
+
+    /**
+     * @noinspection PhpUnused
+     * Used via Eloquent attribute: $comment->votes_count
+     */
+    protected function votesCount(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                $likes    = $this->votes->where('is_liked', true)->count();
+                $dislikes = $this->votes->where('is_liked', false)->count();
+                return $likes - $dislikes;
+            }
         )->shouldCache();
     }
 

@@ -22,18 +22,8 @@ class VoteButton extends Component
 
     public function mount(): void
     {
-        $this->userVote = $this->comment->votes
-            ->firstWhere('user_id', Auth::id())?->isLiked();
-
-        $this->updateVotesCount();
-    }
-
-    protected function updateVotesCount(): void
-    {
-        $likes    = $this->comment->votes()->where('is_liked', true)->count();
-        $dislikes = $this->comment->votes()->where('is_liked', false)->count();
-
-        $this->votesCount = $likes - $dislikes;
+        $this->userVote   = $this->comment->user_vote;
+        $this->votesCount = $this->comment->votes_count;
     }
 
     public function vote(bool $isLiked, ToggleCommentVoteAction $action): void
@@ -53,6 +43,8 @@ class VoteButton extends Component
         $this->userVote = $action->execute($this->comment, $isLiked, Auth::user());
 
         $this->comment->load('votes');
-        $this->updateVotesCount();
+
+        $this->userVote   = $this->comment->user_vote;
+        $this->votesCount = $this->comment->votes_count;
     }
 }

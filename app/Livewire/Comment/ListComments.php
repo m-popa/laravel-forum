@@ -26,6 +26,7 @@ class ListComments extends Component
     public function comments(): LengthAwarePaginator
     {
         return $this->thread->comments()
+                            ->with(['user', 'votes'])
                             ->paginate(10);
     }
 
