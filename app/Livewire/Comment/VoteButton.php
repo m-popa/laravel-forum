@@ -7,7 +7,6 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use App\Actions\ToggleCommentVoteAction;
 use Filament\Notifications\Notification;
-use Illuminate\Validation\ValidationException;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
@@ -48,7 +47,7 @@ class VoteButton extends Component
                         ->body('Please try again later.')
                         ->send();
 
-            throw ValidationException::withMessages(['error' => 'Too many requests.']);
+            return;
         }
 
         $this->userVote = $action->execute($this->comment, $isLiked, Auth::user());
