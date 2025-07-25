@@ -23,7 +23,9 @@ class VoteButton extends Component
 
     public function mount(): void
     {
-        $this->userVote = $this->comment->votes->firstWhere('user_id', Auth::id())?->is_liked;
+        $this->userVote = $this->comment->votes
+            ->firstWhere('user_id', Auth::id())?->isLiked();
+
         $this->updateVotesCount();
     }
 
