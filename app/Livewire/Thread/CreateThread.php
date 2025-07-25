@@ -55,7 +55,7 @@ class CreateThread extends Component implements HasSchemas
             ->statePath('data');
     }
 
-    public function create(CreateThreadAction $action, CreateCommentAction $createComment): void
+    public function create(CreateThreadAction $createThread, CreateCommentAction $createComment): void
     {
         $this->validate();
 
@@ -63,7 +63,7 @@ class CreateThread extends Component implements HasSchemas
 
         $threadData = ThreadData::from($formData);
 
-        $thread = $action->execute(
+        $thread = $createThread->execute(
             user: Auth::user(),
             category: $this->category,
             data: $threadData,
