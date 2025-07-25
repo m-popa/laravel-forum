@@ -3,20 +3,21 @@
 namespace App\Models\Traits;
 
 use App\Enums\Status;
+use Illuminate\Database\Eloquent\Builder;
 
 trait InteractsWithStatus
 {
-    public function scopePublished($query)
+    public function scopePublished($query): Builder
     {
         return $query->where('status', Status::Published);
     }
 
-    public function scopePending($query)
+    public function scopePending($query): Builder
     {
         return $query->where('status', Status::Pending);
     }
 
-    public function scopeRejected($query)
+    public function scopeRejected($query): Builder
     {
         return $query->where('status', Status::Rejected);
     }

@@ -15,7 +15,7 @@
             </div>
         </article>
 
-        <livewire:thread.list-comments :thread-id="$thread->id"/>
+        <livewire:comment.list-comments :thread-id="$thread->id"/>
 
         @auth
             <livewire:comment.create-comment :thread-id="$thread->id"/>

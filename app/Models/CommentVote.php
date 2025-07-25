@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CommentVote extends Model
 {
@@ -34,7 +34,7 @@ class CommentVote extends Model
     public function toggle(bool $isLiked): ?bool
     {
         if ($this->isLiked() === $isLiked) {
-            $this->unvote();
+            $this->delete();
 
             return null;
         }
@@ -47,13 +47,6 @@ class CommentVote extends Model
     public function isLiked(): bool
     {
         return $this->is_liked === true;
-    }
-
-    public function unvote(): static
-    {
-        $this->delete();
-
-        return $this;
     }
 
     protected function casts(): array

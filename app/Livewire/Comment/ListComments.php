@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Thread;
+namespace App\Livewire\Comment;
 
 use App\Models\Thread;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -44,7 +44,7 @@ class ListComments extends Component
 
     public function render(): View
     {
-        return view('livewire.thread.list-comments', [
+        return view('livewire.comment.list-comments', [
             'comments' => $this->comments,
         ]);
     }

@@ -30,7 +30,7 @@
         @endif
 
         <p class="text-sm prose dark:prose-invert">
-            {!! str()->markdown($comment->body) !!}
+            {{ $this->commentInfolist }}
         </p>
 
         @if(auth()->check() && auth()->user()->can('reply', $comment))
