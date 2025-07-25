@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\Status;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Concerns\InteractsWithStatus;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -77,7 +78,7 @@ class Comment extends Model
     {
         return Attribute::make(
             get: fn() => $this->votes
-                ->firstWhere('user_id', auth()->id())?->is_liked ?? null
+                ->firstWhere('user_id', Auth::id())?->is_liked ?? null
         )->shouldCache();
     }
 
@@ -88,11 +89,8 @@ class Comment extends Model
     protected function votesCount(): Attribute
     {
         return Attribute::make(
-            get: function () {
-                $likes    = $this->votes->where('is_liked', true)->count();
-                $dislikes = $this->votes->where('is_liked', false)->count();
-                return $likes - $dislikes;
-            }
+            get: fn() => $this->votes->where('is_liked', true)->count()
+                - $this->votes->where('is_liked', false)->count()
         )->shouldCache();
     }
 

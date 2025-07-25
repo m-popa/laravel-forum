@@ -1,7 +1,10 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100">{{ __('Appearance') }}</h1>
+            <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
+                {{ __('Appearance') }}
+            </h1>
+
             <p class="text-gray-600 dark:text-gray-400 mt-1">
                 {{ __('Update the appearance settings for your account') }}
             </p>
@@ -9,15 +12,15 @@
 
         <div>
             <div class="flex flex-col md:flex-row gap-6">
-
                 <div class="flex-1">
                     <div
-                        class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden mb-6">
+                        class="bg-base rounded-lg shadow-sm border border-secondary overflow-hidden mb-6">
                         <div class="p-6">
                             <livewire:dashboard.user-profile/>
+                            
                             <div class="my-4">
                                 <label for="theme"
-                                       class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                       class="block text-sm font-medium mb-1">
                                     {{ __('Theme') }}
                                     <span id="current-theme"
                                           class="ml-2 text-sm text-violet-700 dark:text-violet-400"></span>

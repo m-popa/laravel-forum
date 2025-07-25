@@ -3,9 +3,9 @@
 namespace App\Providers;
 
 use Filament\Support\Colors\Color;
-use Filament\Support\Facades\FilamentColor;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
+use Filament\Support\Facades\FilamentColor;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,15 +15,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Model::automaticallyEagerLoadRelationships();
-
-        FilamentColor::register([
-            'danger' => Color::Rose,
-            'gray' => Color::Gray,
-            'info' => Color::Blue,
-            'primary' => Color::Indigo,
-            'success' => Color::Emerald,
-            'warning' => Color::Orange,
-        ]);
     }
 
     /**
@@ -31,6 +22,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        FilamentColor::register([
+            'danger' => Color::Rose,
+            'gray' => Color::Gray,
+            'info' => Color::Blue,
+            'primary' => Color::Zinc,
+            'success' => Color::Emerald,
+            'warning' => Color::Orange,
+        ]);
     }
 }

@@ -6,6 +6,8 @@ use Exception;
 use App\Models\Thread;
 use Livewire\Component;
 use App\Models\Category;
+use App\Data\ThreadData;
+use App\Data\CommentData;
 use Filament\Schemas\Schema;
 use App\Actions\CreateThreadAction;
 use Illuminate\Support\Facades\Auth;
@@ -57,20 +59,25 @@ class CreateThread extends Component implements HasSchemas
     {
         $this->validate();
 
-        $data = $this->form->getState();
+        $formData = $this->form->getState();
+
+        $threadData = ThreadData::from($formData);
 
         $thread = $action->execute(
             user: Auth::user(),
             category: $this->category,
-            data: $data,
+            data: $threadData,
         );
+
+        $commentData = CommentData::from([
+            'thread_id' => $thread->id,
+            'body' => $formData['body'],
+            'parent_id' => $formData['parent_id'] ?? null,
+        ]);
 
         $createComment->execute(
             user: Auth::user(),
-            data: [
-                'thread_id' => $thread->id,
-                'body' => $data['body'],
-            ],
+            data: $commentData,
         );
 
 

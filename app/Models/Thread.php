@@ -124,7 +124,9 @@ class Thread extends Model implements HasUrl
     protected function previewBody(): Attribute
     {
         return Attribute::make(
-            get: fn() => Str::limit($this->firstComment->body, 150)
+            get: fn() => $this->firstComment
+                ? Str::limit($this->firstComment->body, 150)
+                : '',
         )->shouldCache();
     }
 
