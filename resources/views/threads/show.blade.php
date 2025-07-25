@@ -5,17 +5,11 @@
                 {{ $thread->title }}
             </h1>
             <p class="mt-4 text-sm text-gray-600 dark:text-gray-400">
-                Posted by {{ $thread->user->name }} • {{ $thread->created_at->diffForHumans() }}
+                {{__('Posted by')}} {{ $thread->user->name }} • {{ $thread->created_at->diffForHumans() }}
             </p>
         </div>
 
-        <article class="border border-secondary rounded-2xl p-8 shadow-sm">
-            <div class="prose dark:prose-invert max-w-none text-gray-800 dark:text-gray-200">
-                {!! str($thread->body)->markdown()->sanitizeHtml() !!}
-            </div>
-        </article>
-
-        <livewire:comment.list-comments :thread-id="$thread->id"/>
+        <livewire:comment.list-comments :thread="$thread"/>
 
         @auth
             <livewire:comment.create-comment :thread-id="$thread->id"/>

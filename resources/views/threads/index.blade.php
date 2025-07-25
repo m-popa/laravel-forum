@@ -41,7 +41,7 @@
                                 aria-label="Views"
                                 role="button"
                                 tabindex="0">
-                                <x-heroicon-o-eye class="w-5 h-5"/>
+                                <x-heroicon-o-eye class="w-4 h-4"/>
                                 <span>{{ $thread->views }}</span>
                             </div>
 
@@ -50,7 +50,7 @@
                                 aria-label="Comments"
                                 role="button"
                                 tabindex="0">
-                                <x-heroicon-o-chat-bubble-left class="w-5 h-5"/>
+                                <x-heroicon-o-chat-bubble-left class="w-4 h-4"/>
                                 <span>{{ $thread->comments->count() }}</span>
                             </div>
                         </div>

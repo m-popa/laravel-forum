@@ -3,15 +3,16 @@
 namespace App\Models;
 
 use App\Enums\Status;
-use App\Interfaces\HasUrl;
-use App\Models\Traits\InteractsWithStatus;
-use Cviebrock\EloquentSluggable\Sluggable;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Contracts\HasUrl;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
+use App\Models\Concerns\InteractsWithStatus;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Thread extends Model implements HasUrl
 {
@@ -23,7 +24,6 @@ class Thread extends Model implements HasUrl
         'title',
         'slug',
         'status',
-        'body',
         'views',
         'user_id',
         'category_id',
@@ -45,6 +45,11 @@ class Thread extends Model implements HasUrl
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function firstComment(): HasOne
+    {
+        return $this->hasOne(Comment::class)->oldestOfMany();
     }
 
     public function sluggable(): array
@@ -86,7 +91,7 @@ class Thread extends Model implements HasUrl
 
     public function isNotPinned(): bool
     {
-        return ! $this->isPinned();
+        return !$this->isPinned();
     }
 
     public function isPinned(): bool
@@ -96,7 +101,7 @@ class Thread extends Model implements HasUrl
 
     public function isNotLocked(): bool
     {
-        return ! $this->isLocked();
+        return !$this->isLocked();
     }
 
     public function isLocked(): bool
@@ -119,7 +124,7 @@ class Thread extends Model implements HasUrl
     protected function previewBody(): Attribute
     {
         return Attribute::make(
-            get: fn () => Str::limit($this->body)
+            get: fn() => Str::limit($this->firstComment->body, 150)
         )->shouldCache();
     }
 

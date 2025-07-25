@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
-use App\Models\Category;
-use App\Models\Thread;
 use App\Models\User;
+use App\Models\Thread;
+use App\Models\Category;
 
 final class CreateThreadAction
 {
@@ -14,7 +14,6 @@ final class CreateThreadAction
     {
         return Thread::create([
             'title' => $data['title'],
-            'body' => $data['body'],
             'user_id' => $user->id,
             'category_id' => $category->id,
         ]);

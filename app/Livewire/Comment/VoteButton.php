@@ -2,32 +2,34 @@
 
 namespace App\Livewire\Comment;
 
-use App\Actions\ToggleCommentVoteAction;
 use App\Models\Comment;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
+use App\Actions\ToggleCommentVoteAction;
+use Filament\Notifications\Notification;
+use Illuminate\Validation\ValidationException;
+use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 
 class VoteButton extends Component
 {
+    use WithRateLimiting;
+
     public Comment $comment;
 
     public ?bool $userVote = null;
 
     public int $votesCount = 0;
 
-    public bool $isVoting = false;
-
     public function mount(): void
     {
-        $vote = $this->comment->votes->firstWhere('user_id', Auth::id());
-        $this->userVote = $vote?->isLiked();
-
+        $this->userVote = $this->comment->votes->firstWhere('user_id', Auth::id())?->is_liked;
         $this->updateVotesCount();
     }
 
     protected function updateVotesCount(): void
     {
-        $likes = $this->comment->votes()->where('is_liked', true)->count();
+        $likes    = $this->comment->votes()->where('is_liked', true)->count();
         $dislikes = $this->comment->votes()->where('is_liked', false)->count();
 
         $this->votesCount = $likes - $dislikes;
@@ -35,16 +37,21 @@ class VoteButton extends Component
 
     public function vote(bool $isLiked, ToggleCommentVoteAction $action): void
     {
-        if ($this->isVoting) {
-            return;
+        try {
+            $this->rateLimit(60);
+        } catch (TooManyRequestsException) {
+            Notification::make()
+                        ->danger()
+                        ->title('Too many requests')
+                        ->body('Please try again later.')
+                        ->send();
+
+            throw ValidationException::withMessages(['error' => 'Too many requests.']);
         }
 
-        $this->isVoting = true;
-
         $this->userVote = $action->execute($this->comment, $isLiked, Auth::user());
-        $this->comment->refresh();
-        $this->updateVotesCount();
 
-        $this->isVoting = false;
+        $this->comment->load('votes');
+        $this->updateVotesCount();
     }
 }
