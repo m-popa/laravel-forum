@@ -18,7 +18,7 @@
         <livewire:thread.list-comments :thread-id="$thread->id"/>
 
         @auth
-            <livewire:thread.create-comment :thread-id="$thread->id"/>
+            <livewire:comment.create-comment :thread-id="$thread->id"/>
         @else
             <p class="text-gray-500 dark:text-gray-400 mt-4">
                 <a href="{{ route('login') }}" class="text-primary">

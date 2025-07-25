@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Thread;
+namespace App\Livewire\Comment;
 
 use App\Actions\CreateCommentAction;
 use App\Models\Comment;
