@@ -46,7 +46,7 @@
     <form wire:submit="create">
         <div class="flex w-full flex-col gap-1">
             {{ $this->form }}
-
+            
             <x-primary-button type="submit" class="mt-4 text-center justify-center" id="comment-button">
                 {{ __('Post a comment') }}
             </x-primary-button>

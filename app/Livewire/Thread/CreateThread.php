@@ -70,8 +70,8 @@ class CreateThread extends Component implements HasSchemas
         );
 
         $commentData = CommentData::from([
-            'thread_id' => $thread->id,
             'body' => $formData['body'],
+            'thread_id' => $thread->id,
             'parent_id' => $formData['parent_id'] ?? null,
         ]);
 

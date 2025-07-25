@@ -12,8 +12,8 @@ use Livewire\Attributes\Locked;
 use Livewire\Attributes\Computed;
 use App\Actions\CreateCommentAction;
 use Illuminate\Support\Facades\Auth;
-use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Contracts\HasSchemas;
+use Filament\Forms\Components\MarkdownEditor;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 
 class CreateComment extends Component implements HasSchemas
@@ -25,7 +25,7 @@ class CreateComment extends Component implements HasSchemas
 
     public ?int $parentId = null;
 
-    public ?string $body = null;
+    public ?array $data = [];
 
     public function mount(): void
     {
@@ -39,13 +39,18 @@ class CreateComment extends Component implements HasSchemas
     {
         return $schema
             ->components([
-                Textarea::make('body')
-                        ->hiddenLabel()
-                        ->rows(5)
-                        ->minLength(3)
-                        ->maxLength(1000)
-                        ->required(),
-            ]);
+                MarkdownEditor::make('body')
+                              ->label('Content')
+                              ->toolbarButtons([
+                                  ['bold', 'italic', 'strike', 'link'],
+                                  ['codeBlock', 'bulletList', 'orderedList'],
+                              ])
+                              ->required()
+                              ->minLength(5)
+                              ->maxLength(5000),
+            ])
+            ->statePath('data')
+            ->model(Comment::class);
     }
 
 
@@ -77,8 +82,8 @@ class CreateComment extends Component implements HasSchemas
         $data = $this->form->getState();
 
         $commentData = CommentData::from([
-            'thread_id' => $this->threadId,
             'body' => $data['body'],
+            'thread_id' => $this->threadId,
             'parent_id' => $this->parentId,
         ]);
 
