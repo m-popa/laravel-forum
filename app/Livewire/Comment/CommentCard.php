@@ -37,10 +37,10 @@ class CommentCard extends Component implements HasSchemas
         $this->dispatch('reply-to-comment', parentId: $this->comment->id);
     }
 
-    public function render(): View
+    public function render(GeneralSettings $generalSettings): View
     {
         return view('livewire.comment.comment-card', [
-            'votingEnabled' => app(GeneralSettings::class)->voting_enabled,
+            'votingEnabled' => $generalSettings->voting_enabled,
         ]);
     }
 }

@@ -25,7 +25,7 @@ class ListComments extends Component
     #[Computed]
     public function comments(): LengthAwarePaginator
     {
-        return $this->thread->comments()->paginate(10);
+        return $this->thread->comments()->published()->paginate(10);
     }
 
     public function render(): View

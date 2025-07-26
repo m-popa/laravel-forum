@@ -26,6 +26,12 @@ class ManageGeneralSettings extends SettingsPage
                       ->helperText('Enable voting of comments on threads')
                       ->required()
                       ->columnSpanFull(),
+
+                Toggle::make('comment_moderation_enabled')
+                      ->label('Enable Comment Moderation')
+                      ->helperText('Enable moderation of comments on threads')
+                      ->required()
+                      ->columnSpanFull(),
             ]);
     }
 }
