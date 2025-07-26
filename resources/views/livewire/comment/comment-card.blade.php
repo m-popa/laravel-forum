@@ -35,10 +35,12 @@
 
         @if(auth()->check() && auth()->user()->can('reply', $comment))
             <div class="mt-4 flex items-center justify-between text-xs">
-                <livewire:comment.vote-button
-                    :comment="$comment"
-                    wire:key="vote-{{ $comment->id }}"
-                />
+                @if($votingEnabled)
+                    <livewire:comment.vote-button
+                        :comment="$comment"
+                        wire:key="vote-{{ $comment->id }}"
+                    />
+                @endif
 
                 <button wire:click="replyToComment" class="font-medium text-primary whitespace-nowrap hover:underline">
                     {{ __('Reply') }}

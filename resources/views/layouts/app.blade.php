@@ -93,8 +93,6 @@
     </main>
 </div>
 
-@livewire('notifications')
-
 <footer class="bg-secondary border-t border-secondary py-8">
     <div class="max-w-6xl mx-auto px-6 text-center text-sm">
         <p class="mb-2">
@@ -103,5 +101,7 @@
         </p>
     </div>
 </footer>
+
+@livewire('notifications')
 </body>
 </html>

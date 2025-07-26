@@ -80,8 +80,7 @@ class Comment extends Model
     protected function userVote(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->votes
-                ->firstWhere('user_id', Auth::id())?->is_liked ?? null
+            get: fn() => $this->votes->firstWhere('user_id', Auth::id())?->isLiked()
         )->shouldCache();
     }
 
@@ -92,8 +91,7 @@ class Comment extends Model
     protected function votesCount(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->votes->where('is_liked', true)->count()
-                - $this->votes->where('is_liked', false)->count()
+            get: fn() => $this->votes->sum(fn($vote) => $vote->is_liked ? 1 : -1)
         )->shouldCache();
     }
 
