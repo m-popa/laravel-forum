@@ -11,18 +11,22 @@ use App\Actions\CreateCommentAction;
 beforeEach(function () {
     $this->user = User::factory()->create();
     $this->thread = Thread::factory()->create();
-    $this->settings = app(GeneralSettings::class);
-    $this->action = app(CreateCommentAction::class);
 });
 
 it('creates a new comment', function () {
+    GeneralSettings::fake([
+        'comment_moderation_enabled' => false,
+    ]);
+
+    $action = app(CreateCommentAction::class);
+
     $commentData = new CommentData(
         body: 'This is a test comment',
         thread_id: $this->thread->id,
         parent_id: null,
     );
 
-    $comment = $this->action->execute($this->user, $commentData);
+    $comment = $action->execute($this->user, $commentData);
 
     expect($comment)
         ->body->toBe('This is a test comment')
@@ -42,6 +46,12 @@ it('creates a new comment', function () {
 });
 
 it('creates a reply to an existing comment', function () {
+    GeneralSettings::fake([
+        'comment_moderation_enabled' => false,
+    ]);
+
+    $action = app(CreateCommentAction::class);
+
     $parentComment = Comment::factory()->create([
         'thread_id' => $this->thread->id,
         'user_id' => User::factory()->create(),
@@ -53,7 +63,7 @@ it('creates a reply to an existing comment', function () {
         parent_id: $parentComment->id,
     );
 
-    $comment = $this->action->execute($this->user, $commentData);
+    $comment = $action->execute($this->user, $commentData);
 
     expect($comment)
         ->body->toBe('This is a reply')
@@ -67,7 +77,11 @@ it('creates a reply to an existing comment', function () {
 });
 
 it('creates a pending comment when moderation is enabled', function () {
-    $this->settings->comment_moderation_enabled = true;
+    GeneralSettings::fake([
+        'comment_moderation_enabled' => true,
+    ]);
+
+    $action = app(CreateCommentAction::class);
 
     $commentData = new CommentData(
         body: 'This comment needs moderation',
@@ -75,13 +89,17 @@ it('creates a pending comment when moderation is enabled', function () {
         parent_id: null,
     );
 
-    $comment = $this->action->execute($this->user, $commentData);
+    $comment = $action->execute($this->user, $commentData);
 
     expect($comment->status)->toBe(Status::Pending);
 });
 
 it('creates a published comment when moderation is disabled', function () {
-    $this->settings->comment_moderation_enabled = false;
+    GeneralSettings::fake([
+        'comment_moderation_enabled' => false,
+    ]);
+
+    $action = app(CreateCommentAction::class);
 
     $commentData = new CommentData(
         body: 'This comment is published immediately',
@@ -89,7 +107,7 @@ it('creates a published comment when moderation is disabled', function () {
         parent_id: null,
     );
 
-    $comment = $this->action->execute($this->user, $commentData);
+    $comment = $action->execute($this->user, $commentData);
 
     expect($comment->status)->toBe(Status::Published);
 });
