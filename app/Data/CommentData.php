@@ -10,8 +10,7 @@ final readonly class CommentData
         public string $body,
         public int $thread_id,
         public ?int $parent_id = null,
-    ) {
-    }
+    ) {}
 
     public static function from(array $data): self
     {

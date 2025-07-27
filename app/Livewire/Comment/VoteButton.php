@@ -2,13 +2,13 @@
 
 namespace App\Livewire\Comment;
 
-use App\Models\Comment;
-use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
 use App\Actions\ToggleCommentVoteAction;
-use Filament\Notifications\Notification;
-use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use App\Models\Comment;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
+use DanHarrin\LivewireRateLimiting\WithRateLimiting;
+use Filament\Notifications\Notification;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Component;
 
 class VoteButton extends Component
 {
@@ -22,7 +22,7 @@ class VoteButton extends Component
 
     public function mount(): void
     {
-        $this->userVote   = $this->comment->user_vote;
+        $this->userVote = $this->comment->user_vote;
         $this->votesCount = $this->comment->votes_count;
     }
 
@@ -32,10 +32,10 @@ class VoteButton extends Component
             $this->rateLimit(60);
         } catch (TooManyRequestsException) {
             Notification::make()
-                        ->danger()
-                        ->title('Too many requests')
-                        ->body('Please try again later.')
-                        ->send();
+                ->danger()
+                ->title('Too many requests')
+                ->body('Please try again later.')
+                ->send();
 
             return;
         }
@@ -44,7 +44,7 @@ class VoteButton extends Component
 
         $this->comment->load('votes');
 
-        $this->userVote   = $this->comment->user_vote;
+        $this->userVote = $this->comment->user_vote;
         $this->votesCount = $this->comment->votes_count;
     }
 }

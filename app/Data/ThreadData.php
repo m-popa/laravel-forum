@@ -8,8 +8,7 @@ final readonly class ThreadData
 {
     public function __construct(
         public string $title,
-    ) {
-    }
+    ) {}
 
     public static function from(array $data): self
     {

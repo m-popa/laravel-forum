@@ -2,16 +2,16 @@
 
 namespace App\Http\Middleware;
 
+use App\Jobs\IncrementThreadViewsJob;
 use Closure;
 use Illuminate\Http\Request;
-use App\Jobs\IncrementThreadViewsJob;
 
 class IncrementThreadViewsMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
         IncrementThreadViewsJob::dispatch($request->thread);
-        
+
         return $next($request);
     }
 }

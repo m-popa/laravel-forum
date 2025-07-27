@@ -3,16 +3,16 @@
 namespace App\Models;
 
 use App\Enums\Status;
-use Illuminate\Support\Str;
-use App\Observers\CommentObserver;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Concerns\InteractsWithStatus;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Observers\CommentObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 #[ObservedBy([CommentObserver::class])]
 class Comment extends Model
@@ -61,7 +61,6 @@ class Comment extends Model
         return $this->hasMany(CommentVote::class);
     }
 
-
     /**
      * @noinspection PhpUnused
      * Used via Eloquent attribute: $comment->preview_body
@@ -69,7 +68,7 @@ class Comment extends Model
     protected function previewBody(): Attribute
     {
         return Attribute::make(
-            get: fn() => Str::limit($this->body)
+            get: fn () => Str::limit($this->body)
         )->shouldCache();
     }
 
@@ -80,7 +79,7 @@ class Comment extends Model
     protected function userVote(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->votes->firstWhere('user_id', Auth::id())?->isLiked()
+            get: fn () => $this->votes->firstWhere('user_id', Auth::id())?->isLiked()
         )->shouldCache();
     }
 
@@ -91,7 +90,7 @@ class Comment extends Model
     protected function votesCount(): Attribute
     {
         return Attribute::make(
-            get: fn() => $this->votes->sum(fn($vote) => $vote->is_liked ? 1 : -1)
+            get: fn () => $this->votes->sum(fn ($vote) => $vote->is_liked ? 1 : -1)
         )->shouldCache();
     }
 

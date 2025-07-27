@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
-use App\Models\Thread;
-use App\Models\Comment;
 use App\Models\Category;
-use Random\RandomException;
-use Illuminate\Support\Carbon;
+use App\Models\Comment;
+use App\Models\Thread;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
+use Random\RandomException;
 
 class ThreadFactory extends Factory
 {

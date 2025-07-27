@@ -3,12 +3,12 @@
 namespace App\Livewire\Comment;
 
 use App\Models\Thread;
-use Livewire\Component;
-use Illuminate\View\View;
-use Livewire\Attributes\On;
-use Livewire\WithPagination;
-use Livewire\Attributes\Computed;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\View\View;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class ListComments extends Component
 {

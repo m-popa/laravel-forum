@@ -3,15 +3,15 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Support\Str;
-use Spatie\Image\Enums\Fit;
-use Spatie\MediaLibrary\HasMedia;
-use Illuminate\Notifications\Notifiable;
-use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
+use Spatie\Image\Enums\Fit;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class User extends Authenticatable implements HasMedia
@@ -48,7 +48,7 @@ class User extends Authenticatable implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('avatars')
-             ->singleFile();
+            ->singleFile();
     }
 
     public function registerMediaConversions(?Media $media = null): void
@@ -76,11 +76,11 @@ class User extends Authenticatable implements HasMedia
     public function initials(): string
     {
         return Str::of($this->name)
-                  ->explode(' ')
-                  ->filter()
-                  ->map(fn(string $name) => Str::of($name)->substr(0, 1)->upper())
-                  ->take(2)
-                  ->implode('');
+            ->explode(' ')
+            ->filter()
+            ->map(fn (string $name) => Str::of($name)->substr(0, 1)->upper())
+            ->take(2)
+            ->implode('');
     }
 
     protected function casts(): array

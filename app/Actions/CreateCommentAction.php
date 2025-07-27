@@ -4,18 +4,17 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
-use App\Models\User;
+use App\Data\CommentData;
 use App\Enums\Status;
 use App\Models\Comment;
-use App\Data\CommentData;
+use App\Models\User;
 use App\Settings\GeneralSettings;
 
 final readonly class CreateCommentAction
 {
     public function __construct(
         private GeneralSettings $settings,
-    ) {
-    }
+    ) {}
 
     public function execute(User $user, CommentData $data): Comment
     {

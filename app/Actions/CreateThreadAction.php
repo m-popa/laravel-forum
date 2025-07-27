@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Actions;
 
-use App\Models\User;
-use App\Models\Thread;
-use App\Models\Category;
 use App\Data\ThreadData;
+use App\Models\Category;
+use App\Models\Thread;
+use App\Models\User;
 
 final class CreateThreadAction
 {

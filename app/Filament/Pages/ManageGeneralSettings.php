@@ -2,12 +2,12 @@
 
 namespace App\Filament\Pages;
 
-use BackedEnum;
-use Filament\Schemas\Schema;
-use Filament\Pages\SettingsPage;
 use App\Settings\GeneralSettings;
-use Filament\Support\Icons\Heroicon;
+use BackedEnum;
 use Filament\Forms\Components\Toggle;
+use Filament\Pages\SettingsPage;
+use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
 
 class ManageGeneralSettings extends SettingsPage
 {
@@ -22,16 +22,16 @@ class ManageGeneralSettings extends SettingsPage
         return $schema
             ->components([
                 Toggle::make('voting_enabled')
-                      ->label('Enable Voting')
-                      ->helperText('Enable voting of comments on threads')
-                      ->required()
-                      ->columnSpanFull(),
+                    ->label('Enable Voting')
+                    ->helperText('Enable voting of comments on threads')
+                    ->required()
+                    ->columnSpanFull(),
 
                 Toggle::make('comment_moderation_enabled')
-                      ->label('Enable Comment Moderation')
-                      ->helperText('Enable moderation of comments on threads')
-                      ->required()
-                      ->columnSpanFull(),
+                    ->label('Enable Comment Moderation')
+                    ->helperText('Enable moderation of comments on threads')
+                    ->required()
+                    ->columnSpanFull(),
             ]);
     }
 }
