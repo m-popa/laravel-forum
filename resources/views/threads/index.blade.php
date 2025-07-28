@@ -61,7 +61,9 @@
 
                 <!-- Categories -->
                 <div class="bg-surface border border-gray rounded-xl p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Categories</h3>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                        {{ __('Categories') }}
+                    </h3>
                     <div class="space-y-2">
                         @foreach ($categories as $category)
                             <a href="{{ route('threads.index', $category) }}"
@@ -74,30 +76,16 @@
                                 </div>
 
                                 <span class="text-xs text-gray-500 bg-gray/20 px-2 py-1 rounded-full">
-                                    {{ $threads->where('category_id', $category->id)->count() }}
+                                    {{ $category->threads()->count() }}
                                 </span>
                             </a>
                         @endforeach
                     </div>
-                    <div class="pt-4 mt-4 border-t border-gray/50">
+                    <div class="pt-4 mt-4 border-t border-primary/50">
                         <a href="#"
                            class="text-sm text-primary hover:text-secondary font-medium transition-colors duration-200">
-                            View all categories →
+                            {{ __('View all categories') }}
                         </a>
-                    </div>
-                </div>
-
-                <!-- Tags -->
-                <div class="bg-surface border border-gray rounded-xl p-6">
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Popular Tags</h3>
-                    <div class="flex flex-wrap gap-2">
-                        @foreach (['laravel', 'php', 'javascript', 'vue', 'tailwind', 'database'] as $i => $tag)
-                            @php $color = $i % 2 === 0 ? 'primary' : 'secondary'; @endphp
-                            <span
-                                class="px-3 py-1.5 bg-{{ $color }}/10 text-{{ $color }} text-sm font-medium rounded-full hover:bg-{{ $color }}/20 cursor-pointer transition-colors duration-200">
-                                {{ $tag }}
-                            </span>
-                        @endforeach
                     </div>
                 </div>
 
@@ -106,19 +94,19 @@
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Community Stats</h3>
                     <div class="space-y-3">
                         <div class="flex items-center justify-between">
-                            <span class="text-gray-600 dark:text-gray-300">Total Threads</span>
+                            <span class="text-secondary">Total Threads</span>
                             <span class="font-semibold text-primary">1,247</span>
                         </div>
                         <div class="flex items-center justify-between">
-                            <span class="text-gray-600 dark:text-gray-300">Total Comments</span>
+                            <span class="text-secondary">Total Comments</span>
                             <span class="font-semibold text-secondary">8,932</span>
                         </div>
                         <div class="flex items-center justify-between">
-                            <span class="text-gray-600 dark:text-gray-300">Active Users</span>
+                            <span class="text-secondary">Active Users</span>
                             <span class="font-semibold text-success">423</span>
                         </div>
                         <div class="flex items-center justify-between">
-                            <span class="text-gray-600 dark:text-gray-300">Online Now</span>
+                            <span class="text-secondary">Online Now</span>
                             <span class="font-semibold text-info">67</span>
                         </div>
                     </div>
@@ -168,8 +156,9 @@
                                 <div class="flex items-center justify-between pt-4 border-t border-gray/50">
                                     <div class="flex items-center gap-3">
                                         <x-user.avatar :user="$thread->user" class="w-8 h-8"/>
-                                        <span
-                                            class="font-medium text-primary truncate w-24">{{ $thread->user->name }}</span>
+                                        <span class="font-medium text-primary truncate w-32">
+                                            {{ $thread->user->name }}
+                                        </span>
                                     </div>
 
                                     <a href="{{ $thread->url() }}"

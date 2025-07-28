@@ -2,19 +2,19 @@
 
 namespace App\Livewire\Comment;
 
-use App\Actions\CreateCommentAction;
-use App\Data\CommentData;
-use App\Models\Comment;
 use Exception;
+use App\Models\Comment;
+use Livewire\Component;
+use App\Data\CommentData;
+use Livewire\Attributes\On;
+use Filament\Schemas\Schema;
+use Livewire\Attributes\Locked;
+use Livewire\Attributes\Computed;
+use App\Actions\CreateCommentAction;
+use Illuminate\Support\Facades\Auth;
+use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
-use Filament\Schemas\Contracts\HasSchemas;
-use Filament\Schemas\Schema;
-use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\Computed;
-use Livewire\Attributes\Locked;
-use Livewire\Attributes\On;
-use Livewire\Component;
 
 class CreateComment extends Component implements HasSchemas
 {
@@ -40,14 +40,14 @@ class CreateComment extends Component implements HasSchemas
         return $schema
             ->components([
                 MarkdownEditor::make('body')
-                    ->label('Content')
-                    ->toolbarButtons([
-                        ['bold', 'italic', 'strike', 'link'],
-                        ['codeBlock', 'bulletList', 'orderedList'],
-                    ])
-                    ->required()
-                    ->minLength(5)
-                    ->maxLength(5000),
+                              ->label('Content')
+                              ->toolbarButtons([
+                                  ['bold', 'italic', 'strike', 'link'],
+                                  ['codeBlock', 'bulletList', 'orderedList'],
+                              ])
+                              ->required()
+                              ->minLength(5)
+                              ->maxLength(5000),
             ])
             ->statePath('data')
             ->model(Comment::class);
@@ -58,7 +58,7 @@ class CreateComment extends Component implements HasSchemas
     {
         $comment = Comment::find($this->parentId);
 
-        if (! $comment) {
+        if (!$comment) {
             return null;
         }
 
@@ -89,6 +89,8 @@ class CreateComment extends Component implements HasSchemas
         $action->execute(user: Auth::user(), data: $commentData);
 
         $this->form->fill();
+
+        $this->parentId = null;
 
         $this->dispatch('replyCreated');
     }
