@@ -14,21 +14,21 @@
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         @forelse ($threads as $thread)
             <div
-                class="mb-6 mx-auto max-w-7xl border border-secondary p-6 rounded-xl">
+                class="mb-6 mx-auto max-w-7xl border border-gray p-6 rounded-xl">
                 <!-- Left Content: Title + Snippet -->
                 <div class="flex-1 flex flex-col justify-between">
                     <a href="{{ $thread->url() }}" class="block text-2xl font-semibold line-clamp-2 lg:text-2xl">
                         {{ $thread->title }}
                     </a>
 
-                    <p class="mt-3 text-gray-700 dark:text-gray-300 text-sm leading-relaxed line-clamp-3">
+                    <p class="mt-3 text-sm leading-relaxed line-clamp-3">
                         {!! str()->markdown($thread->preview_body) !!}
                     </p>
                 </div>
 
                 <!-- Right Content: Meta Info -->
                 <div
-                    class="flex flex-col sm:items-end justify-between min-w-[200px] gap-5 text-gray-500 dark:text-gray-400 text-sm">
+                    class="flex flex-col sm:items-end justify-between gap-5 text-sm">
                     <span class="whitespace-nowrap">
                         {{ $thread->created_at->diffForHumans() }}
                     </span>
@@ -68,16 +68,16 @@
             </div>
 
         @empty
-            <div
-                class="text-center py-16 bg-white dark:bg-surface-dark border border-dashed border-surface-dark dark:border-surface-alt rounded-lg">
-                <p class="text-gray-500 dark:text-gray-400 text-lg">
+            <div class="text-center py-16 bg-surface border border-dashed border-secondary rounded-lg">
+                <p class="text-lg">
                     No threads in this category yet.
                 </p>
             </div>
+
         @endforelse
 
 
-        <div class="mt-10">
+        <div class=" mt-10">
             {{ $threads->links() }}
         </div>
     </section>

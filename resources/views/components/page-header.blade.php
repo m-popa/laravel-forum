@@ -3,7 +3,7 @@
     'subtitle' => 'Missing subtitle',
 ])
 
-<section {{ $attributes->merge(['class' => 'bg-secondary text-primary border-b border-secondary']) }}>
+<section {{ $attributes->merge(['class' => 'bg-surface text-primary border-b border-surface']) }}>
     <div class="py-12 px-4 mx-auto max-w-screen-xl text-center lg:py-20 lg:px-12">
         <!-- Title -->
         <h1 class="mb-6 text-4xl font-extrabold tracking-tight leading-tight md:text-5xl lg:text-6xl text-primary dark:text-primary">

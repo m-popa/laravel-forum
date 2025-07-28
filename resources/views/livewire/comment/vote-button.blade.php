@@ -4,9 +4,7 @@
         type="button"
         wire:click="vote(true)"
         class="inline-flex shrink-0 justify-center items-center size-8 rounded-full
-            text-gray-500
-            dark:text-neutral-500
-            {{ $userVote === true ? 'btn-success btn dark:text-white' : '' }}">
+            {{ $userVote === true ? 'bg-success text-white' : '' }}">
         <!-- Upvote SVG icon -->
         <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -26,9 +24,7 @@
         type="button"
         wire:click="vote(false)"
         class="inline-flex shrink-0 justify-center items-center size-8 rounded-full
-            text-gray-500
-            dark:text-neutral-500
-            {{ $userVote === false ? 'btn btn-error dark:text-white' : '' }}">
+            {{ $userVote === false ? 'bg-danger text-white' : '' }}">
         <!-- Downvote SVG icon -->
         <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

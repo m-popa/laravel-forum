@@ -9,7 +9,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             @forelse ($categories as $category)
                 <article
-                    class="group grid rounded-xl max-w-2xl grid-cols-1 md:grid-cols-8 overflow-hidden border border-secondary">
+                    class="shadow-sm group grid rounded-xl max-w-2xl grid-cols-1 md:grid-cols-8 overflow-hidden border border-gray">
                     <a href="{{ route('threads.index', $category) }}">
                         <div class="flex flex-col justify-center p-6 col-span-8">
                             <h3 class="text-balance text-xl font-bold text-on-surface-strong lg:text-2xl dark:text-on-surface-dark-strong"
