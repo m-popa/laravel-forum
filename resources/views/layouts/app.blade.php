@@ -46,7 +46,7 @@
     @vite(['resources/css/app.css',  'resources/js/app.js'])
 </head>
 
-<body class="min-h-screen bg-background flex flex-col font-sans antialiased">
+<body class="min-h-screen bg-app flex flex-col font-sans antialiased">
 
 <header>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
@@ -115,7 +115,7 @@
     </main>
 </div>
 
-<footer class="bg-surface border-t border-gray py-8">
+<footer class="bg-app border-t border-gray py-8">
     <div class="max-w-6xl mx-auto px-6 text-center text-sm">
         <p class="mb-2">
             &copy; {{ date('Y') }} <span class="font-semibold">Laravel Forum</span>.
